@@ -7,7 +7,8 @@ import TechItem from './TechItem';
 
 const StyledHeroSection = styled(Box)(({ theme }) => ({
   minHeight: '100vh',
-  width: '100vw',
+  width: '100%',
+  maxWidth: '100vw',
   position: 'relative',
   overflow: 'hidden',
   background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)',
@@ -31,7 +32,8 @@ const ParallaxBackground = styled(Box)(({ theme }) => ({
   bottom: 0,
   overflow: 'hidden',
   zIndex: 0,
-  width: '100vw',
+  width: '100%',
+  maxWidth: '100vw',
   height: '100vh',
 }));
 

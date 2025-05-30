@@ -15,6 +15,9 @@ const App = () => {
       <Box
         sx={{
           minHeight: '100vh',
+          width: '100%',
+          maxWidth: '100vw',
+          overflowX: 'hidden',
           background: 'linear-gradient(135deg, #121212 0%, #1a1a1a 100%)',
           color: 'text.primary',
         }}

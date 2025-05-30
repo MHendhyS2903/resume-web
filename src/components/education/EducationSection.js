@@ -192,6 +192,7 @@ const EducationSection = () => {
       sx={{
         minHeight: { xs: 'auto', sm: '60vh' },
         width: '100%',
+        maxWidth: '100vw',
         py: 4,
         color: 'white',
         position: 'relative',

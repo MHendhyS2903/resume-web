@@ -12,6 +12,8 @@ import LanguageIcon from '@mui/icons-material/Language';
 
 const ContactContainer = styled(Box)(({ theme }) => ({
   minHeight: '100vh',
+  width: '100%',
+  maxWidth: '100vw',
   position: 'relative',
   overflow: 'hidden',
   background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)',

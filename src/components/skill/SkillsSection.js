@@ -223,6 +223,8 @@ const SkillsSection = () => {
     <Box
       sx={{
         py: 8,
+        width: '100%',
+        maxWidth: '100vw',
         background: 'linear-gradient(135deg, #121212 0%, #1a1a1a 100%)',
         color: 'white',
         position: 'relative',

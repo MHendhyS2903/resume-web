@@ -357,6 +357,8 @@ const ProjectsSection = () => {
       sx={{
         minHeight: { xs: 'auto', sm: '100vh' },
         maxHeight: { xs: 'auto', sm: '100vh' },
+        width: '100%',
+        maxWidth: '100vw',
         position: 'relative',
         overflow: 'hidden',
         background: `linear-gradient(180deg, ${theme.palette.background.default} 0%, ${theme.palette.background.paper} 100%)`,
