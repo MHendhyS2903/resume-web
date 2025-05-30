@@ -507,38 +507,38 @@ const ProjectsSection = () => {
                     </Box>
                     <ProjectActions>
                       {project.github && (
-                        <IconButton
-                          href={project.github}
-                          target="_blank"
-                          sx={{
-                            color: theme.palette.primary.light,
-                            padding: '8px',
-                            '&:hover': {
-                              color: theme.palette.primary.main,
-                              transform: 'translateY(-2px)',
-                            },
-                            transition: 'all 0.3s ease',
-                          }}
-                        >
-                          <GitHubIcon sx={{ fontSize: '1.5rem' }} />
-                        </IconButton>
+                      <IconButton
+                        href={project.github}
+                        target="_blank"
+                        sx={{
+                          color: theme.palette.primary.light,
+                          padding: '8px',
+                          '&:hover': {
+                            color: theme.palette.primary.main,
+                            transform: 'translateY(-2px)',
+                          },
+                          transition: 'all 0.3s ease',
+                        }}
+                      >
+                        <GitHubIcon sx={{ fontSize: '1.5rem' }} />
+                      </IconButton>
                       )}
                       {project.demo && project.demo !== '' && (
-                        <IconButton
-                          href={project.demo}
-                          target="_blank"
-                          sx={{
-                            color: theme.palette.primary.light,
-                            padding: '8px',
-                            '&:hover': {
-                              color: theme.palette.primary.main,
-                              transform: 'translateY(-2px)',
-                            },
-                            transition: 'all 0.3s ease',
-                          }}
-                        >
-                          <LaunchIcon sx={{ fontSize: '1.5rem' }} />
-                        </IconButton>
+                      <IconButton
+                        href={project.demo}
+                        target="_blank"
+                        sx={{
+                          color: theme.palette.primary.light,
+                          padding: '8px',
+                          '&:hover': {
+                            color: theme.palette.primary.main,
+                            transform: 'translateY(-2px)',
+                          },
+                          transition: 'all 0.3s ease',
+                        }}
+                      >
+                        <LaunchIcon sx={{ fontSize: '1.5rem' }} />
+                      </IconButton>
                       )}
                     </ProjectActions>
                   </ProjectContent>

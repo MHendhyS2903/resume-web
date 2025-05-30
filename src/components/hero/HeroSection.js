@@ -6,7 +6,7 @@ import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 import TechItem from './TechItem';
 
 const StyledHeroSection = styled(Box)(({ theme }) => ({
-  minHeight: '100vh',
+  height: '100vh',
   width: '100%',
   maxWidth: '100vw',
   position: 'relative',
@@ -63,6 +63,8 @@ const ParallaxLine = styled(motion.div)(({ theme, width, height, color, top, lef
 const ContentWrapper = styled(Box)({
   position: 'relative',
   zIndex: 2,
+  height: '100vh',
+  overflow: 'hidden',
 });
 
 const AnimatedText = styled(motion.div)({
@@ -193,7 +195,7 @@ const HeroSection = () => {
   return (
     <StyledHeroSection>
       <ParallaxBackground>
-        <Parallax pages={3} style={{ height: '100%', width: '100%' }}>
+        <Parallax pages={3} style={{ height: '100%', width: '100%', overflow: 'hidden' }}>
           {parallaxElements.map((element, index) => (
             <ParallaxLayer
               key={index}
@@ -205,6 +207,7 @@ const HeroSection = () => {
                 justifyContent: 'center',
                 width: '100%',
                 height: '100%',
+                overflow: 'hidden'
               }}
             >
               {element.type === 'circle' ? (
@@ -248,8 +251,16 @@ const HeroSection = () => {
       </ParallaxBackground>
 
       <ContentWrapper>
-        <Container maxWidth="lg" sx={{ height: '100vh', display: 'flex', alignItems: 'center' }}>
-          <Grid container spacing={4} alignItems="center">
+        <Container maxWidth="lg" sx={{ 
+          height: '100%', 
+          display: 'flex', 
+          alignItems: 'center',
+          overflow: 'hidden',
+          '& .MuiGrid-container': {
+            overflow: 'hidden'
+          }
+        }}>
+          <Grid container spacing={4} alignItems="center" sx={{ overflow: 'hidden' }}>
             <Grid item xs={12} md={8}>
               <AnimatedText>
                 <motion.div
