@@ -34,7 +34,7 @@ const ProjectCard = styled(motion.div)(({ theme }) => ({
 
 const ProjectImage = styled(Box)(({ theme }) => ({
   position: 'relative',
-  height: { xs: '200px', md: '300px' },
+  height: '300px',
   overflow: 'hidden',
   '&::before': {
     content: '""',
@@ -425,8 +425,8 @@ const ProjectsSection = () => {
   return (
     <Box
       sx={{
-        minHeight: { xs: 'auto', md: '100vh' },
-        maxHeight: { xs: 'auto', md: '100vh' },
+        minHeight: { xs: '125vh', sm: '100vh' },
+        maxHeight: { xs: '125vh', sm: '100vh' },
         position: 'relative',
         overflow: 'hidden',
         background: `linear-gradient(180deg, ${theme.palette.background.default} 0%, ${theme.palette.background.paper} 100%)`,
@@ -445,7 +445,7 @@ const ProjectsSection = () => {
           display: 'flex',
           flexDirection: 'column',
           py: { xs: 6, md: 6 },
-          minHeight: { xs: '100vh', md: 'auto' },
+          height: { xs: '120vh', sm: '100vh' },
         }}
       >
         <SectionTitle
@@ -549,7 +549,7 @@ const ProjectsSection = () => {
             }}
           >
             {projects.map((project) => (
-              <SwiperSlide key={project.title} style={{ width: { xs: '280px', md: '300px' }, height: { xs: '500px', md: '600px' } }}>
+              <SwiperSlide key={project.title} style={{ width: '300px', height: '600px' }}>
                 <ProjectCard>
                   <ProjectImage>
                     <img src={project.image} alt={project.title} />
@@ -561,7 +561,7 @@ const ProjectsSection = () => {
                         color: theme.palette.primary.light,
                         fontWeight: 'bold',
                         mb: 2,
-                        fontSize: { xs: '1.1rem', md: '1.25rem' },
+                        fontSize: '1.25rem',
                       }}
                     >
                       {project.title}
@@ -572,13 +572,13 @@ const ProjectsSection = () => {
                         color: theme.palette.text.secondary,
                         mb: 3,
                         flex: 1,
-                        fontSize: { xs: '0.85rem', md: '1rem' },
-                        lineHeight: { xs: 1.5, md: 1.6 },
+                        fontSize: '1rem',
+                        lineHeight: 1.6,
                       }}
                     >
                       {project.description}
                     </Typography>
-                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mb: 3 }}>
+                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 3 }}>
                       {project.technologies.map((tech, techIndex) => (
                         <TechChip
                           key={tech}
@@ -586,11 +586,11 @@ const ProjectsSection = () => {
                           animate={{ opacity: 1, scale: 1 }}
                           transition={{ delay: techIndex * 0.1 }}
                           sx={{
-                            fontSize: { xs: '0.75rem', md: '0.9rem' },
-                            padding: { xs: '0.3rem 0.5rem', md: '0.4rem' },
+                            fontSize: '0.9rem',
+                            padding: '0.4rem',
                           }}
                         >
-                          <CodeIcon sx={{ fontSize: { xs: '0.75rem', md: '0.9rem' } }} />
+                          <CodeIcon sx={{ fontSize: '0.9rem' }} />
                           {tech}
                         </TechChip>
                       ))}
@@ -601,7 +601,7 @@ const ProjectsSection = () => {
                         target="_blank"
                         sx={{
                           color: theme.palette.primary.light,
-                          padding: { xs: '6px', md: '8px' },
+                          padding: '8px',
                           '&:hover': {
                             color: theme.palette.primary.main,
                             transform: 'translateY(-2px)',
@@ -609,14 +609,14 @@ const ProjectsSection = () => {
                           transition: 'all 0.3s ease',
                         }}
                       >
-                        <GitHubIcon sx={{ fontSize: { xs: '1.2rem', md: '1.5rem' } }} />
+                        <GitHubIcon sx={{ fontSize: '1.5rem' }} />
                       </IconButton>
                       <IconButton
                         href={project.demo}
                         target="_blank"
                         sx={{
                           color: theme.palette.primary.light,
-                          padding: { xs: '6px', md: '8px' },
+                          padding: '8px',
                           '&:hover': {
                             color: theme.palette.primary.main,
                             transform: 'translateY(-2px)',
@@ -624,7 +624,7 @@ const ProjectsSection = () => {
                           transition: 'all 0.3s ease',
                         }}
                       >
-                        <LaunchIcon sx={{ fontSize: { xs: '1.2rem', md: '1.5rem' } }} />
+                        <LaunchIcon sx={{ fontSize: '1.5rem' }} />
                       </IconButton>
                     </ProjectActions>
                   </ProjectContent>
