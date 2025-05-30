@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Box, Container, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { motion } from 'framer-motion';
@@ -92,29 +92,58 @@ const FloatingShape = styled(motion.div)(({ theme }) => ({
   border: '1px solid rgba(144, 202, 249, 0.1)',
 }));
 
+const EducationLogo = styled(Box)(({ theme }) => ({
+  width: '60px',
+  height: '60px',
+  borderRadius: '12px',
+  overflow: 'hidden',
+  marginRight: theme.spacing(2),
+  background: 'rgba(255, 255, 255, 0.05)',
+  border: '1px solid rgba(255, 255, 255, 0.1)',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: '8px',
+  '& img': {
+    width: '45px',
+    height: '45px',
+    objectFit: 'cover',
+    objectPosition: 'center',
+  },
+}));
+
+const EducationHeader = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  marginBottom: theme.spacing(2),
+}));
+
 const EducationSection = () => {
-  const educationData = [
+  const educationData = useMemo(() => [
     {
       degree: "Bachelor's degree, Computer Science",
       school: "Politeknik Negeri Jakarta (PNJ)",
       period: "Jun 2017 - Jun 2022",
-      description: "Computer Science"
+      description: "Computer Science",
+      logo: "https://asset-2.tstatic.net/tribunnewswiki/foto/bank/images/politeknik-negeri-jakarta-pnj.jpg"
     },
     {
       degree: "Diploma of Education, Computer Software Engineering",
       school: "CEP-CCIT FTUI",
       period: "Jun 2017 - Jun 2020",
-      description: "Computer Software Engineering"
+      description: "Computer Software Engineering",
+      logo: "https://static.uipod.id/logo/22028.jpg"
     },
     {
       degree: "Computer Software Engineering",
       school: "SMK WIKRAMA BOGOR",
       period: "Jun 2013 - Jun 2016",
-      description: "Computer Software Engineering"
+      description: "Computer Software Engineering",
+      logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSH0kCgrpux8k6WkZ13zzTEDCoGOlVsFUWh2A&s"
     }
-  ];
+  ], []);
 
-  const containerVariants = {
+  const containerVariants = useMemo(() => ({
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -122,9 +151,9 @@ const EducationSection = () => {
         staggerChildren: 0.1,
       },
     },
-  };
+  }), []);
 
-  const cardVariants = {
+  const cardVariants = useMemo(() => ({
     hidden: { 
       opacity: 0,
       x: -20,
@@ -138,7 +167,24 @@ const EducationSection = () => {
         damping: 15,
       },
     },
-  };
+  }), []);
+
+  const floatingShapes = useMemo(() => [
+    {
+      width: '200px',
+      height: '200px',
+      top: '10%',
+      left: '5%',
+      duration: 6,
+    },
+    {
+      width: '150px',
+      height: '150px',
+      bottom: '10%',
+      right: '5%',
+      duration: 8,
+    }
+  ], []);
 
   return (
     <Box
@@ -150,28 +196,22 @@ const EducationSection = () => {
       }}
     >
       <BackgroundGradient />
-      <FloatingShape
-        initial={{ y: 0 }}
-        animate={{ y: [0, -20, 0] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        sx={{
-          width: '200px',
-          height: '200px',
-          top: '10%',
-          left: '5%',
-        }}
-      />
-      <FloatingShape
-        initial={{ y: 0 }}
-        animate={{ y: [0, 20, 0] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        sx={{
-          width: '150px',
-          height: '150px',
-          bottom: '10%',
-          right: '5%',
-        }}
-      />
+      {floatingShapes.map((shape, index) => (
+        <FloatingShape
+          key={index}
+          initial={{ y: 0 }}
+          animate={{ y: [0, index === 0 ? -20 : 20, 0] }}
+          transition={{ duration: shape.duration, repeat: Infinity, ease: "easeInOut" }}
+          sx={{
+            width: shape.width,
+            height: shape.height,
+            top: shape.top,
+            left: shape.left,
+            bottom: shape.bottom,
+            right: shape.right,
+          }}
+        />
+      ))}
       <Container maxWidth="sm">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -212,38 +252,45 @@ const EducationSection = () => {
                   sx={{ ml: 2 }}
                 >
                   <Box sx={{ position: 'relative', zIndex: 1 }}>
-                    <Typography
-                      variant="subtitle1"
-                      sx={{
-                        color: '#90caf9',
-                        fontWeight: 'bold',
-                        mb: 0.5,
-                        fontSize: '0.9rem',
-                      }}
-                    >
-                      {edu.degree}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      sx={{
-                        color: '#e3f2fd',
-                        mb: 0.5,
-                        fontSize: '0.8rem',
-                      }}
-                    >
-                      {edu.school}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      sx={{
-                        color: '#b3e5fc',
-                        mb: 1,
-                        fontStyle: 'italic',
-                        fontSize: '0.75rem',
-                      }}
-                    >
-                      {edu.period}
-                    </Typography>
+                    <EducationHeader>
+                      <EducationLogo>
+                        <img src={edu.logo} alt={`${edu.school} logo`} loading="lazy" />
+                      </EducationLogo>
+                      <Box>
+                        <Typography
+                          variant="subtitle1"
+                          sx={{
+                            color: '#90caf9',
+                            fontWeight: 'bold',
+                            mb: 0.5,
+                            fontSize: '0.9rem',
+                          }}
+                        >
+                          {edu.degree}
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          sx={{
+                            color: '#e3f2fd',
+                            mb: 0.5,
+                            fontSize: '0.8rem',
+                          }}
+                        >
+                          {edu.school}
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          sx={{
+                            color: '#b3e5fc',
+                            mb: 1,
+                            fontStyle: 'italic',
+                            fontSize: '0.75rem',
+                          }}
+                        >
+                          {edu.period}
+                        </Typography>
+                      </Box>
+                    </EducationHeader>
                     <Typography
                       variant="body2"
                       sx={{

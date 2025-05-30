@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Box, Container, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 const SkillCard = styled(motion.div)(({ theme }) => ({
   position: 'relative',
@@ -35,37 +35,6 @@ const SkillContent = styled(motion.div)({
   zIndex: 1,
   transformStyle: 'preserve-3d',
 });
-
-const SkillIcon = styled(motion.div)(({ theme }) => ({
-  width: '54px',
-  height: '54px',
-  borderRadius: '20px',
-  background: 'linear-gradient(135deg, rgba(26, 35, 126, 0.8), rgba(13, 71, 161, 0.8))',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  fontSize: '1.2rem',
-  fontWeight: 'bold',
-  letterSpacing: '1px',
-  marginBottom: theme.spacing(1.5),
-  boxShadow: '0 4px 20px rgba(13, 71, 161, 0.2)',
-  transform: 'translateZ(20px)',
-  position: 'relative',
-  overflow: 'hidden',
-  backdropFilter: 'blur(5px)',
-  color: 'rgba(255, 255, 255, 0.9)',
-  '&::before': {
-    content: '""',
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    background: 'linear-gradient(45deg, rgba(255,255,255,0.15), rgba(255,255,255,0))',
-    zIndex: 1,
-  },
-  transition: 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
-}));
 
 const SparkleEffect = styled(motion.div)(({ theme }) => ({
   position: 'absolute',
@@ -170,50 +139,49 @@ const SkillsSection = () => {
   const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
   const rotateX = useTransform(scrollYProgress, [0, 1], [0, 5]);
 
-  const skills = [
+  const skills = useMemo(() => [
+    {
+      category: 'Mobile Development',
+      skills: [
+        { name: 'React Native', level: 85 },
+        { name: 'TypeScript', level: 85 },
+        { name: 'Redux', level: 85 },
+        { name: 'Kotlin', level: 65 },
+        { name: 'Flutter', level: 65 },
+      ],
+    },
     {
       category: 'Frontend',
       skills: [
-        { name: 'React', level: 90 },
+        { name: 'React.js', level: 85 },
         { name: 'TypeScript', level: 85 },
-        { name: 'Material-UI', level: 95 },
-        { name: 'Redux', level: 88 },
+        { name: 'Redux', level: 85 },
         { name: 'Next.js', level: 85 },
       ],
     },
     {
       category: 'Backend',
       skills: [
-        { name: 'Node.js', level: 92 },
-        { name: 'Express', level: 90 },
-        { name: 'Python', level: 85 },
-        { name: 'Django', level: 80 },
-        { name: 'REST APIs', level: 95 },
+        { name: 'Node.js', level: 70 },
+        { name: 'Express', level: 75 },
+        { name: 'Laravel', level: 70 },
+        { name: 'CI', level: 70 },
+        { name: '.NetCore', level: 70 },
       ],
     },
     {
       category: 'Database',
       skills: [
-        { name: 'MongoDB', level: 88 },
-        { name: 'PostgreSQL', level: 85 },
-        { name: 'Firebase', level: 90 },
-        { name: 'Redis', level: 82 },
-        { name: 'GraphQL', level: 85 },
+        { name: 'MongoDB', level: 70 },
+        { name: 'PostgreSQL', level: 80 },
+        { name: 'Firebase', level: 80 },
+        { name: 'MySQL', level: 80 },
+        { name: 'SQL Server', level: 80 },
       ],
     },
-    {
-      category: 'DevOps',
-      skills: [
-        { name: 'Docker', level: 85 },
-        { name: 'AWS', level: 80 },
-        { name: 'CI/CD', level: 88 },
-        { name: 'Git', level: 95 },
-        { name: 'Linux', level: 85 },
-      ],
-    },
-  ];
+  ], []);
 
-  const containerVariants = {
+  const containerVariants = useMemo(() => ({
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -221,9 +189,9 @@ const SkillsSection = () => {
         staggerChildren: 0.1,
       },
     },
-  };
+  }), []);
 
-  const cardVariants = {
+  const cardVariants = useMemo(() => ({
     hidden: { 
       opacity: 0,
       y: 50,
@@ -249,7 +217,7 @@ const SkillsSection = () => {
         damping: 10,
       },
     },
-  };
+  }), []);
 
   return (
     <Box

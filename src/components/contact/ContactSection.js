@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Box, Container, Typography, TextField, Button, useTheme, Grid } from '@mui/material';
 import { motion } from 'framer-motion';
 import { styled } from '@mui/material/styles';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import TwitterIcon from '@mui/icons-material/Twitter';
+import InstagramIcon from '@mui/icons-material/Instagram';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -237,24 +237,24 @@ const ContactSection = () => {
     message: '',
   });
 
-  const contactInfo = [
+  const contactInfo = useMemo(() => [
     {
       icon: <PhoneIcon />,
       label: 'Phone',
-      value: '+62 812-3456-7890',
-      link: 'tel:+6281234567890'
+      value: '+62 888-1853-835',
+      link: 'tel:+628881853835'
     },
     {
       icon: <EmailIcon />,
       label: 'Email',
-      value: 'hendhy.sumaryo@gmail.com',
-      link: 'mailto:hendhy.sumaryo@gmail.com'
+      value: 'm.hendhy.s@gmail.com',
+      link: 'mailto:m.hendhy.s@gmail.com'
     },
     {
       icon: <LocationOnIcon />,
       label: 'Location',
-      value: 'Jakarta, Indonesia',
-      link: 'https://maps.google.com/?q=Jakarta,Indonesia'
+      value: 'Bassura City, Jakarta',
+      link: 'https://maps.app.goo.gl/Rk6m8FWf89jwayJ98'
     },
     {
       icon: <LanguageIcon />,
@@ -262,7 +262,62 @@ const ContactSection = () => {
       value: 'hendhy.dev',
       link: 'https://hendhy.dev'
     }
-  ];
+  ], []);
+
+  const socialLinks = useMemo(() => [
+    {
+      icon: <GitHubIcon />,
+      url: 'https://github.com/MHendhyS2903',
+    },
+    {
+      icon: <LinkedInIcon />,
+      url: 'https://www.linkedin.com/in/mhendhys',
+    },
+    {
+      icon: <InstagramIcon />,
+      url: 'https://www.instagram.com/m.hendhy.s',
+    }
+  ], []);
+
+  const buttonStyles = useMemo(() => ({
+    submit: {
+      background: 'rgba(255, 105, 180, 0.2)',
+      backdropFilter: 'blur(10px)',
+      border: '1px solid rgba(255, 105, 180, 0.3)',
+      color: '#fff',
+      boxShadow: '0 4px 20px rgba(255, 105, 180, 0.2)',
+      padding: { xs: '12px 32px', sm: '14px 36px', md: '16px 40px' },
+      fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' },
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      minWidth: { xs: '160px', sm: '180px', md: '200px' },
+      maxWidth: { xs: '100%', sm: '240px', md: '280px' },
+      position: 'relative',
+      '&::before': {
+        content: '""',
+        position: 'absolute',
+        top: 0,
+        left: '-100%',
+        width: '100%',
+        height: '100%',
+        background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)',
+        transition: '0.5s',
+      },
+      '&:hover': {
+        transform: 'translateY(-2px)',
+        boxShadow: '0 6px 25px rgba(255, 105, 180, 0.3)',
+        background: 'rgba(255, 105, 180, 0.3)',
+        '&::before': {
+          left: '100%',
+        },
+      },
+      '&:active': {
+        transform: 'translateY(1px)',
+      },
+      transition: 'all 0.3s ease',
+    }
+  }), []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -348,27 +403,16 @@ const ContactSection = () => {
                       justifyContent: 'center',
                     }}
                   >
-                    <SocialButton 
-                      whileHover={{ scale: 1.1 }} 
-                      whileTap={{ scale: 0.9 }}
-                      onClick={() => window.open('https://github.com/yourusername', '_blank')}
-                    >
-                      <GitHubIcon />
-                    </SocialButton>
-                    <SocialButton 
-                      whileHover={{ scale: 1.1 }} 
-                      whileTap={{ scale: 0.9 }}
-                      onClick={() => window.open('https://linkedin.com/in/yourusername', '_blank')}
-                    >
-                      <LinkedInIcon />
-                    </SocialButton>
-                    <SocialButton 
-                      whileHover={{ scale: 1.1 }} 
-                      whileTap={{ scale: 0.9 }}
-                      onClick={() => window.open('https://twitter.com/yourusername', '_blank')}
-                    >
-                      <TwitterIcon />
-                    </SocialButton>
+                    {socialLinks.map((social, index) => (
+                      <SocialButton 
+                        key={index}
+                        whileHover={{ scale: 1.1 }} 
+                        whileTap={{ scale: 0.9 }}
+                        onClick={() => window.open(social.url, '_blank')}
+                      >
+                        {social.icon}
+                      </SocialButton>
+                    ))}
                   </Box>
                 </ContactCard>
 
@@ -542,43 +586,7 @@ const ContactSection = () => {
                           variant="contained"
                           size="large"
                           type="submit"
-                          sx={{
-                            background: 'rgba(255, 105, 180, 0.2)',
-                            backdropFilter: 'blur(10px)',
-                            border: '1px solid rgba(255, 105, 180, 0.3)',
-                            color: '#fff',
-                            boxShadow: '0 4px 20px rgba(255, 105, 180, 0.2)',
-                            padding: { xs: '12px 32px', sm: '14px 36px', md: '16px 40px' },
-                            fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' },
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                            minWidth: { xs: '160px', sm: '180px', md: '200px' },
-                            maxWidth: { xs: '100%', sm: '240px', md: '280px' },
-                            position: 'relative',
-                            '&::before': {
-                              content: '""',
-                              position: 'absolute',
-                              top: 0,
-                              left: '-100%',
-                              width: '100%',
-                              height: '100%',
-                              background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)',
-                              transition: '0.5s',
-                            },
-                            '&:hover': {
-                              transform: 'translateY(-2px)',
-                              boxShadow: '0 6px 25px rgba(255, 105, 180, 0.3)',
-                              background: 'rgba(255, 105, 180, 0.3)',
-                              '&::before': {
-                                left: '100%',
-                              },
-                            },
-                            '&:active': {
-                              transform: 'translateY(1px)',
-                            },
-                            transition: 'all 0.3s ease',
-                          }}
+                          sx={buttonStyles.submit}
                         >
                           Send Message
                         </Button>

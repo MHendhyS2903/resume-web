@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Box, Container, Typography, useTheme, IconButton } from '@mui/material';
 import { motion } from 'framer-motion';
 import { styled } from '@mui/material/styles';
@@ -8,7 +8,7 @@ import CodeIcon from '@mui/icons-material/Code';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { EffectCoverflow, Pagination, Navigation, Autoplay } from 'swiper/modules';
+import { EffectCoverflow, Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
@@ -35,6 +35,7 @@ const ProjectCard = styled(motion.div)(({ theme }) => ({
 const ProjectImage = styled(Box)(({ theme }) => ({
   position: 'relative',
   height: '300px',
+  width: '100%',
   overflow: 'hidden',
   '&::before': {
     content: '""',
@@ -50,6 +51,7 @@ const ProjectImage = styled(Box)(({ theme }) => ({
     width: '100%',
     height: '100%',
     objectFit: 'cover',
+    objectPosition: 'center',
     transition: 'transform 0.5s ease-in-out',
   },
   '&:hover img': {
@@ -104,17 +106,6 @@ const SectionTitle = styled(motion.div)(({ theme }) => ({
   textAlign: 'center',
   marginBottom: theme.spacing(8),
   position: 'relative',
-  '&::after': {
-    content: '""',
-    position: 'absolute',
-    bottom: -20,
-    left: '50%',
-    transform: 'translateX(-50%)',
-    width: '60px',
-    height: '4px',
-    background: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.primary.light})`,
-    borderRadius: '2px',
-  },
 }));
 
 const SectionDescription = styled(motion.div)(({ theme }) => ({
@@ -125,93 +116,6 @@ const SectionDescription = styled(motion.div)(({ theme }) => ({
   color: theme.palette.text.secondary,
   fontSize: '1.1rem',
   lineHeight: 1.8,
-}));
-
-const SideContent = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: theme.spacing(4),
-  height: '100%',
-  justifyContent: 'center',
-}));
-
-const SideCard = styled(motion.div)(({ theme }) => ({
-  padding: theme.spacing(3),
-  borderRadius: '16px',
-  background: 'rgba(255, 255, 255, 0.05)',
-  backdropFilter: 'blur(10px)',
-  border: '1px solid rgba(255, 255, 255, 0.1)',
-  transition: 'transform 0.3s ease',
-  '&:hover': {
-    transform: 'translateY(-5px)',
-  },
-}));
-
-const FloatingShape = styled(motion.div)(({ theme, color, size, top, left }) => ({
-  position: 'absolute',
-  width: size,
-  height: size,
-  background: `radial-gradient(circle at center, ${color} 0%, transparent 70%)`,
-  filter: 'blur(20px)',
-  opacity: 0.3,
-  top,
-  left,
-  zIndex: 0,
-}));
-
-const DecorativeLine = styled(motion.div)(({ theme, color, width, height, top, left, rotate }) => ({
-  position: 'absolute',
-  width,
-  height,
-  background: `linear-gradient(90deg, ${color}, transparent)`,
-  top,
-  left,
-  transform: `rotate(${rotate}deg)`,
-  opacity: 0.2,
-  zIndex: 0,
-}));
-
-const SideDecoration = styled(Box)(({ theme }) => ({
-  position: 'absolute',
-  width: '100%',
-  height: '100%',
-  top: 0,
-  left: 0,
-  pointerEvents: 'none',
-  overflow: 'hidden',
-}));
-
-const ParallaxBackground = styled(Box)(({ theme }) => ({
-  position: 'absolute',
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0,
-  overflow: 'hidden',
-  zIndex: 0,
-}));
-
-const ParallaxCircle = styled(motion.div)(({ theme, size, color, top, left }) => ({
-  position: 'absolute',
-  width: size,
-  height: size,
-  borderRadius: '50%',
-  background: `radial-gradient(circle at center, ${color} 0%, transparent 70%)`,
-  filter: 'blur(20px)',
-  opacity: 0.3,
-  top,
-  left,
-}));
-
-const ParallaxLine = styled(motion.div)(({ theme, width, height, color, top, left, rotate }) => ({
-  position: 'absolute',
-  width,
-  height,
-  background: `linear-gradient(90deg, ${color}, transparent)`,
-  top,
-  left,
-  transform: `rotate(${rotate}deg)`,
-  opacity: 0.2,
 }));
 
 const BackgroundDecoration = styled(Box)(({ theme }) => ({
@@ -330,103 +234,128 @@ const ProjectsSection = () => {
   const theme = useTheme();
   const swiperRef = React.useRef(null);
 
-  const projects = [
+  const projects = useMemo(() => [
     {
-      title: 'E-Commerce Platform',
-      description: 'A full-stack e-commerce platform with real-time inventory management and secure payment processing.',
-      image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop',
-      technologies: ['React', 'Node.js', 'MongoDB', 'Express', 'Redux'],
-      github: 'https://github.com',
-      demo: 'https://example.com',
+      title: 'MySf Applications',
+      description: 'A mobile application designed to offer convenience and accessibility to Smartfren customers by providing various features and functionalities like balance and usage check, package purchase, and bill payment.',
+      image: 'https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/36/73/8d/36738d49-39ae-d2de-2d09-a951a9e3eaee/2f55b884-87ca-4b6a-8977-f3d761879ab5_Update-mySF-v8-IOS-EN-1242x2208_iOS-EN-page1.jpg/392x696bb.jpg',
+      technologies: ['React Native', 'Redux'],
+      github: '',
+      demo: 'https://play.google.com/store/apps/details?id=com.smartfren&hl=id',
     },
     {
-      title: 'Task Management App',
-      description: 'A collaborative task management application with real-time updates and team collaboration features.',
-      image: 'https://images.unsplash.com/photo-1540350394557-8d14678e7f91?w=800&h=600&fit=crop',
-      technologies: ['React', 'Firebase', 'Material-UI', 'Redux'],
-      github: 'https://github.com',
-      demo: 'https://example.com',
+      title: 'Physical Goods Web',
+      description: 'A website that serves as an online marketplace for Smartfren app users, specializing in the sale of physical goods.',
+      image: 'https://www.smartfren.com/app/uploads/2023/03/kemitran_sf_page_banner2.png',
+      technologies: ['React.js', 'Redux'],
+      github: '',
+      demo: '',
     },
     {
-      title: 'Portfolio Website',
-      description: 'A modern portfolio website showcasing projects and skills with interactive animations.',
-      image: 'https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&h=600&fit=crop',
-      technologies: ['React', 'Material-UI', 'Framer Motion', 'TypeScript'],
-      github: 'https://github.com',
-      demo: 'https://example.com',
+      title: 'SF Shop',
+      description: 'An online platform dedicated to offering a convenient service for purchasing digital game vouchers.',
+      image: 'https://ucms-api.smartfren.com/ucms/api/v1/uploads/GV_sfshop_mei_244ff6be07.jpeg',
+      technologies: ['Next.js', 'Redux'],
+      github: '',
+      demo: 'https://sfshop.id',
     },
     {
-      title: 'Social Media Dashboard',
-      description: 'A comprehensive social media analytics dashboard with real-time data visualization and reporting tools.',
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop',
-      technologies: ['React', 'D3.js', 'Node.js', 'PostgreSQL', 'Socket.io'],
-      github: 'https://github.com',
-      demo: 'https://example.com',
+      title: 'NGBS "KB Star" Application',
+      description: 'KB Star is a m-banking application from Bank KB Bukopin, that allows customers to perform various financial transactions and manage their accounts using mobile devices.',
+      image: 'https://api.kbbank.co.id//_default_upload_bucket/Banner%20Product%20Digital_KBStar%20Launching%20M10%20512x250px.png',
+      technologies: ['Flutter', 'MobX'],
+      github: '',
+      demo: 'https://play.google.com/store/apps/details?id=com.kbBukopin.Kbstar&hl=id',
     },
     {
-      title: 'AI Image Generator',
-      description: 'An AI-powered image generation platform using machine learning to create unique artwork and designs.',
-      image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&h=600&fit=crop',
-      technologies: ['Python', 'TensorFlow', 'React', 'FastAPI', 'Docker'],
-      github: 'https://github.com',
-      demo: 'https://example.com',
+      title: 'Bukopin Cash Management',
+      description: 'Internet banking or e-banking services and the management of financial transactions over the internet.',
+      image: 'https://pbs.twimg.com/media/Fe8JRaYacAILcCj.jpg',
+      technologies: ['JexFrame', 'JSP'],
+      github: '',
+      demo: 'https://kbstarbiz.kbbank.co.id/loginAccount.act',
     },
     {
-      title: 'Fitness Tracking App',
-      description: 'A mobile-first fitness tracking application with workout planning and progress monitoring features.',
-      image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop',
-      technologies: ['React Native', 'Firebase', 'Redux', 'Node.js'],
-      github: 'https://github.com',
-      demo: 'https://example.com',
+      title: 'Wealth Management Feature',
+      description: 'A comprehensive approach to managing an individual financial resources and investments to help them achieve their financial goals and objectives.',
+      image: 'https://play-lh.googleusercontent.com/ryqymqnxqdXq0Hwbzwp0bfAAWGl7RvE_hXdiVA2T0-9c6UCL_68bi2yYsRV5-Hi85mdL',
+      technologies: ['React Native', 'Redux'],
+      github: '',
+      demo: 'https://play.google.com/store/apps/details?id=com.rm_tools&hl=id',
     },
     {
-      title: 'Real Estate Platform',
-      description: 'A modern real estate platform with property listings, virtual tours, and mortgage calculator.',
-      image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop',
-      technologies: ['React', 'Three.js', 'Node.js', 'MongoDB', 'AWS'],
-      github: 'https://github.com',
-      demo: 'https://example.com',
+      title: 'JastipinAja! Application',
+      description: 'An e-commerce application that facilitates online buying and selling of goods.',
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKuw1EeblPHMNTiegrcrNw9KGQr0ChtyZ7Xw&s',
+      technologies: ['React Native', 'Redux', 'Express.js', 'MySQL'],
+      github: '',
+      demo: '',
     },
     {
-      title: 'Crypto Trading Bot',
-      description: 'An automated cryptocurrency trading bot with real-time market analysis and strategy implementation.',
-      image: 'https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=800&h=600&fit=crop',
-      technologies: ['Python', 'TensorFlow', 'React', 'FastAPI', 'Redis'],
-      github: 'https://github.com',
-      demo: 'https://example.com',
+      title: 'BayarYuk Finance & Payment',
+      description: 'An application to manage all food court needs with one cashier and many shops, contains modules such as customers, sellers, cashiers, menus, transactions, payments, shops, and financial reports.',
+      image: 'https://media.iqonic.design/iqonic-design/wp-content/uploads/2023/02/Frame-1.webp',
+      technologies: ['Flutter'],
+      github: '',
+      demo: '',
     },
     {
-      title: 'Smart Home Dashboard',
-      description: 'A centralized dashboard for controlling and monitoring smart home devices and automation.',
-      image: 'https://images.unsplash.com/photo-1558002038-1055907df827?w=800&h=600&fit=crop',
-      technologies: ['React', 'Node.js', 'MQTT', 'WebSocket', 'MongoDB'],
-      github: 'https://github.com',
-      demo: 'https://example.com',
+      title: 'BPR Application',
+      description: 'An application that is used to manage all the needs of money lending companies that contains modules such as customers, employees, savings, loans, installment payments, installment simulations, and more.',
+      image: 'https://www.reedukkan.com/blog/wp-content/uploads/2023/01/what_is_kotlin_banner_image.png',
+      technologies: ['Kotlin', 'ASP.NET Core', 'MongoDB'],
+      github: '',
+      demo: '',
     },
     {
-      title: 'Language Learning App',
-      description: 'An interactive language learning platform with speech recognition and personalized learning paths.',
-      image: 'https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=800&h=600&fit=crop',
-      technologies: ['React Native', 'TensorFlow', 'Node.js', 'MongoDB', 'WebRTC'],
-      github: 'https://github.com',
-      demo: 'https://example.com',
+      title: 'Asia Trans Food Application',
+      description: 'A mobile-based application with a user-friendly interface and reliable system to order food, ensuring a smooth and seamless experience.',
+      image: 'https://media.suara.com/pictures/970x544/2020/08/13/85830-aplikasi-asia-trans.jpg',
+      technologies: ['Kotlin', 'ASP.NET Core', 'MongoDB'],
+      github: '',
+      demo: '',
+    },
+    {
+      title: 'Payment Point API',
+      description: 'An application created to be used to pay bills for household needs, made by integrating a 3rd party API from MobilePulsa. Contains data management modules for orders, users, payments, profits, products and more.',
+      image: 'https://miro.medium.com/v2/resize:fit:705/1*OiVr2f63kbvC4xKCB_z-mw.png',
+      technologies: ['ASP.NET Core', 'MongoDB', 'Vue.js'],
+      github: '',
+      demo: '',
     }
-  ];
+  ], []);
 
-  const parallaxElements = [
-    { type: 'circle', size: '300px', color: theme.palette.primary.main, top: '10%', left: '5%', speed: 0.2 },
-    { type: 'circle', size: '200px', color: theme.palette.primary.light, top: '60%', left: '85%', speed: 0.3 },
-    { type: 'circle', size: '150px', color: theme.palette.secondary.main, top: '30%', left: '70%', speed: 0.4 },
-    { type: 'line', width: '400px', height: '2px', color: theme.palette.primary.main, top: '20%', left: '10%', rotate: 45, speed: 0.5 },
-    { type: 'line', width: '300px', height: '2px', color: theme.palette.primary.light, top: '80%', left: '60%', rotate: -45, speed: 0.6 },
-    { type: 'line', width: '200px', height: '2px', color: theme.palette.secondary.main, top: '40%', left: '30%', rotate: 30, speed: 0.7 },
-  ];
+  const swiperConfig = useMemo(() => ({
+    effect: 'coverflow',
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: 'auto',
+    coverflowEffect: {
+      rotate: 50,
+      stretch: 0,
+      depth: 100,
+      modifier: 1,
+      slideShadows: true,
+    },
+    pagination: {
+      clickable: true,
+    },
+    autoplay: {
+      delay: 3000,
+      disableOnInteraction: false,
+    },
+    modules: [EffectCoverflow, Pagination, Autoplay],
+    className: 'mySwiper',
+    style: {
+      padding: '30px 0 50px 0',
+    }
+  }), []);
 
   return (
     <Box
       sx={{
-        minHeight: { xs: '125vh', sm: '100vh' },
-        maxHeight: { xs: '125vh', sm: '100vh' },
+        minHeight: { xs: '130vh', sm: '100vh' },
+        maxHeight: { xs: '130vh', sm: '100vh' },
         position: 'relative',
         overflow: 'hidden',
         background: `linear-gradient(180deg, ${theme.palette.background.default} 0%, ${theme.palette.background.paper} 100%)`,
@@ -445,7 +374,7 @@ const ProjectsSection = () => {
           display: 'flex',
           flexDirection: 'column',
           py: { xs: 6, md: 6 },
-          height: { xs: '120vh', sm: '100vh' },
+          height: { xs: '110vh', sm: '100vh' },
         }}
       >
         <SectionTitle
@@ -478,8 +407,8 @@ const ProjectsSection = () => {
           sx={{ mb: { xs: 2, md: 3 } }}
         >
           <Typography sx={{ fontSize: { xs: '0.9rem', md: '1.1rem' } }}>
-            Explore a collection of my most impactful projects, showcasing expertise in full-stack development,
-            UI/UX design, and innovative problem-solving. Each project represents a unique challenge
+            Explore a collection of my most impactful projects, showcasing expertise in Fullstack development,
+            Frontend development, Backend development, and innovative problem-solving. Each project represents a unique challenge
             and solution in the ever-evolving landscape of technology.
           </Typography>
         </SectionDescription>
@@ -524,35 +453,13 @@ const ProjectsSection = () => {
             onSwiper={(swiper) => {
               swiperRef.current = swiper;
             }}
-            effect={'coverflow'}
-            grabCursor={true}
-            centeredSlides={true}
-            slidesPerView={'auto'}
-            coverflowEffect={{
-              rotate: 50,
-              stretch: 0,
-              depth: 100,
-              modifier: 1,
-              slideShadows: true,
-            }}
-            pagination={{
-              clickable: true,
-            }}
-            autoplay={{
-              delay: 3000,
-              disableOnInteraction: false,
-            }}
-            modules={[EffectCoverflow, Pagination, Autoplay]}
-            className="mySwiper"
-            style={{
-              padding: '30px 0 50px 0',
-            }}
+            {...swiperConfig}
           >
             {projects.map((project) => (
               <SwiperSlide key={project.title} style={{ width: '300px', height: '600px' }}>
                 <ProjectCard>
                   <ProjectImage>
-                    <img src={project.image} alt={project.title} />
+                    <img src={project.image} alt={project.title} loading="lazy" />
                   </ProjectImage>
                   <ProjectContent>
                     <Typography
@@ -596,36 +503,40 @@ const ProjectsSection = () => {
                       ))}
                     </Box>
                     <ProjectActions>
-                      <IconButton
-                        href={project.github}
-                        target="_blank"
-                        sx={{
-                          color: theme.palette.primary.light,
-                          padding: '8px',
-                          '&:hover': {
-                            color: theme.palette.primary.main,
-                            transform: 'translateY(-2px)',
-                          },
-                          transition: 'all 0.3s ease',
-                        }}
-                      >
-                        <GitHubIcon sx={{ fontSize: '1.5rem' }} />
-                      </IconButton>
-                      <IconButton
-                        href={project.demo}
-                        target="_blank"
-                        sx={{
-                          color: theme.palette.primary.light,
-                          padding: '8px',
-                          '&:hover': {
-                            color: theme.palette.primary.main,
-                            transform: 'translateY(-2px)',
-                          },
-                          transition: 'all 0.3s ease',
-                        }}
-                      >
-                        <LaunchIcon sx={{ fontSize: '1.5rem' }} />
-                      </IconButton>
+                      {project.github && (
+                        <IconButton
+                          href={project.github}
+                          target="_blank"
+                          sx={{
+                            color: theme.palette.primary.light,
+                            padding: '8px',
+                            '&:hover': {
+                              color: theme.palette.primary.main,
+                              transform: 'translateY(-2px)',
+                            },
+                            transition: 'all 0.3s ease',
+                          }}
+                        >
+                          <GitHubIcon sx={{ fontSize: '1.5rem' }} />
+                        </IconButton>
+                      )}
+                      {project.demo && project.demo !== '' && (
+                        <IconButton
+                          href={project.demo}
+                          target="_blank"
+                          sx={{
+                            color: theme.palette.primary.light,
+                            padding: '8px',
+                            '&:hover': {
+                              color: theme.palette.primary.main,
+                              transform: 'translateY(-2px)',
+                            },
+                            transition: 'all 0.3s ease',
+                          }}
+                        >
+                          <LaunchIcon sx={{ fontSize: '1.5rem' }} />
+                        </IconButton>
+                      )}
                     </ProjectActions>
                   </ProjectContent>
                 </ProjectCard>

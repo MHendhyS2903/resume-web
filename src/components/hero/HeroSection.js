@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useMemo } from 'react';
 import { Box, Container, Grid, Typography, Button, useTheme } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
@@ -80,7 +80,7 @@ const HeroSection = () => {
   const y = useTransform(scrollY, [0, 1000], [0, 200]);
   const ref = useRef(null);
 
-  const parallaxElements = [
+  const parallaxElements = useMemo(() => [
     { type: 'circle', size: '600px', color: '#3f51b5', top: '10%', left: '5%', speed: 0.2 },
     { type: 'circle', size: '500px', color: '#7986cb', top: '60%', left: '85%', speed: 0.3 },
     { type: 'circle', size: '400px', color: '#a8c0ff', top: '30%', left: '70%', speed: 0.4 },
@@ -89,11 +89,104 @@ const HeroSection = () => {
     { type: 'line', width: '500px', height: '2px', color: '#a8c0ff', top: '40%', left: '30%', rotate: 30, speed: 0.7 },
     { type: 'circle', size: '300px', color: '#3f51b5', top: '80%', left: '20%', speed: 0.4 },
     { type: 'circle', size: '200px', color: '#7986cb', top: '20%', left: '40%', speed: 0.3 },
-  ];
+  ], []);
 
-  const techStack = [
-    'React', 'Node.js', 'TypeScript', 'Python', 'AWS', 'Docker'
-  ];
+  const techStack = useMemo(() => [
+    'React Native',
+    'Kotlin',
+    'Flutter',
+    'React.js',
+    'Next.js',
+    'Javascript',
+    'Laravel',
+    'CI',
+    'MySQL',
+    'SQL Server',
+    'MongoDB',
+    'REST API',
+    'JexFrame',
+    'Java'
+  ], []);
+
+  const buttonStyles = useMemo(() => ({
+    contained: {
+      borderRadius: '30px',
+      background: 'rgba(63, 81, 181, 0.2)',
+      backdropFilter: 'blur(10px)',
+      border: '1px solid rgba(63, 81, 181, 0.3)',
+      color: '#fff',
+      boxShadow: '0 4px 20px rgba(63, 81, 181, 0.2)',
+      padding: { xs: '8px 16px', sm: '10px 20px', md: '12px 32px' },
+      fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' },
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      minWidth: { xs: '120px', sm: '140px', md: '160px' },
+      maxWidth: { xs: '100%', sm: '200px', md: '240px' },
+      position: 'relative',
+      '&::before': {
+        content: '""',
+        position: 'absolute',
+        top: 0,
+        left: '-100%',
+        width: '100%',
+        height: '100%',
+        background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)',
+        transition: '0.5s',
+      },
+      '&:hover': {
+        transform: 'translateY(-2px)',
+        boxShadow: '0 6px 25px rgba(63, 81, 181, 0.3)',
+        background: 'rgba(63, 81, 181, 0.3)',
+        '&::before': {
+          left: '100%',
+        },
+      },
+      '&:active': {
+        transform: 'translateY(1px)',
+      },
+      transition: 'all 0.3s ease',
+    },
+    outlined: {
+      borderRadius: '30px',
+      background: 'rgba(168, 192, 255, 0.1)',
+      backdropFilter: 'blur(10px)',
+      border: '1px solid rgba(168, 192, 255, 0.3)',
+      color: '#a8c0ff',
+      boxShadow: '0 4px 20px rgba(168, 192, 255, 0.1)',
+      padding: { xs: '8px 16px', sm: '10px 20px', md: '12px 32px' },
+      fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' },
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      minWidth: { xs: '120px', sm: '140px', md: '160px' },
+      maxWidth: { xs: '100%', sm: '200px', md: '240px' },
+      position: 'relative',
+      '&::before': {
+        content: '""',
+        position: 'absolute',
+        top: 0,
+        left: '-100%',
+        width: '100%',
+        height: '100%',
+        background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)',
+        transition: '0.5s',
+      },
+      '&:hover': {
+        transform: 'translateY(-2px)',
+        boxShadow: '0 6px 25px rgba(168, 192, 255, 0.2)',
+        background: 'rgba(168, 192, 255, 0.2)',
+        color: '#fff',
+        '&::before': {
+          left: '100%',
+        },
+      },
+      '&:active': {
+        transform: 'translateY(1px)',
+      },
+      transition: 'all 0.3s ease',
+    }
+  }), []);
 
   return (
     <StyledHeroSection>
@@ -232,89 +325,14 @@ const HeroSection = () => {
                 <Button
                   variant="contained"
                   size="large"
-                  sx={{
-                    borderRadius: '30px',
-                    background: 'rgba(63, 81, 181, 0.2)',
-                    backdropFilter: 'blur(10px)',
-                    border: '1px solid rgba(63, 81, 181, 0.3)',
-                    color: '#fff',
-                    boxShadow: '0 4px 20px rgba(63, 81, 181, 0.2)',
-                    padding: { xs: '8px 16px', sm: '10px 20px', md: '12px 32px' },
-                    fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' },
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    minWidth: { xs: '120px', sm: '140px', md: '160px' },
-                    maxWidth: { xs: '100%', sm: '200px', md: '240px' },
-                    position: 'relative',
-                    '&::before': {
-                      content: '""',
-                      position: 'absolute',
-                      top: 0,
-                      left: '-100%',
-                      width: '100%',
-                      height: '100%',
-                      background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)',
-                      transition: '0.5s',
-                    },
-                    '&:hover': {
-                      transform: 'translateY(-2px)',
-                      boxShadow: '0 6px 25px rgba(63, 81, 181, 0.3)',
-                      background: 'rgba(63, 81, 181, 0.3)',
-                      '&::before': {
-                        left: '100%',
-                      },
-                    },
-                    '&:active': {
-                      transform: 'translateY(1px)',
-                    },
-                    transition: 'all 0.3s ease',
-                  }}
+                  sx={buttonStyles.contained}
                 >
                   View Projects
                 </Button>
                 <Button
                   variant="outlined"
                   size="large"
-                  sx={{
-                    borderRadius: '30px',
-                    background: 'rgba(168, 192, 255, 0.1)',
-                    backdropFilter: 'blur(10px)',
-                    border: '1px solid rgba(168, 192, 255, 0.3)',
-                    color: '#a8c0ff',
-                    boxShadow: '0 4px 20px rgba(168, 192, 255, 0.1)',
-                    padding: { xs: '8px 16px', sm: '10px 20px', md: '12px 32px' },
-                    fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' },
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    minWidth: { xs: '120px', sm: '140px', md: '160px' },
-                    maxWidth: { xs: '100%', sm: '200px', md: '240px' },
-                    position: 'relative',
-                    '&::before': {
-                      content: '""',
-                      position: 'absolute',
-                      top: 0,
-                      left: '-100%',
-                      width: '100%',
-                      height: '100%',
-                      background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)',
-                      transition: '0.5s',
-                    },
-                    '&:hover': {
-                      transform: 'translateY(-2px)',
-                      boxShadow: '0 6px 25px rgba(168, 192, 255, 0.2)',
-                      background: 'rgba(168, 192, 255, 0.2)',
-                      color: '#fff',
-                      '&::before': {
-                        left: '100%',
-                      },
-                    },
-                    '&:active': {
-                      transform: 'translateY(1px)',
-                    },
-                    transition: 'all 0.3s ease',
-                  }}
+                  sx={buttonStyles.outlined}
                 >
                   Contact Me
                 </Button>
