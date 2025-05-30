@@ -188,11 +188,19 @@ const EducationSection = () => {
 
   return (
     <Box
+      id="education"
       sx={{
+        minHeight: { xs: 'auto', sm: '60vh' },
+        width: '100%',
         py: 4,
         color: 'white',
         position: 'relative',
         overflow: 'hidden',
+        background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
       }}
     >
       <BackgroundGradient />
@@ -212,7 +220,7 @@ const EducationSection = () => {
           }}
         />
       ))}
-      <Container maxWidth="sm">
+      <Container maxWidth="sm" sx={{ position: 'relative', zIndex: 2, py: 2 }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -220,8 +228,7 @@ const EducationSection = () => {
           transition={{ duration: 0.6 }}
         >
           <Typography
-            variant="h5"
-            gutterBottom
+            variant="h3"
             sx={{
               textAlign: 'center',
               mb: 3,
@@ -230,6 +237,7 @@ const EducationSection = () => {
               background: 'linear-gradient(45deg, #fff, #90caf9)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
+              fontSize: { xs: '1.75rem', sm: '2rem', md: '2.5rem' },
             }}
           >
             Education
@@ -245,7 +253,7 @@ const EducationSection = () => {
           <Box sx={{ position: 'relative', pl: 2 }}>
             <TimelineLine />
             {educationData.map((edu, index) => (
-              <Box key={edu.degree} sx={{ position: 'relative', mb: 2 }}>
+              <Box key={edu.degree} sx={{ position: 'relative', mb: 1.5 }}>
                 <TimelineDot />
                 <EducationCard
                   variants={cardVariants}

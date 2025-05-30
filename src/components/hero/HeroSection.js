@@ -326,6 +326,12 @@ const HeroSection = () => {
                   variant="contained"
                   size="large"
                   sx={buttonStyles.contained}
+                  onClick={() => {
+                    const projectsSection = document.getElementById('projects');
+                    if (projectsSection) {
+                      projectsSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
                 >
                   View Projects
                 </Button>
@@ -333,6 +339,12 @@ const HeroSection = () => {
                   variant="outlined"
                   size="large"
                   sx={buttonStyles.outlined}
+                  onClick={() => {
+                    const contactSection = document.getElementById('contact');
+                    if (contactSection) {
+                      contactSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
                 >
                   Contact Me
                 </Button>

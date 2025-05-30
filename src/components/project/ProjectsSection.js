@@ -353,9 +353,10 @@ const ProjectsSection = () => {
 
   return (
     <Box
+      id="projects"
       sx={{
-        minHeight: { xs: '130vh', sm: '100vh' },
-        maxHeight: { xs: '130vh', sm: '100vh' },
+        minHeight: { xs: 'auto', sm: '100vh' },
+        maxHeight: { xs: 'auto', sm: '100vh' },
         position: 'relative',
         overflow: 'hidden',
         background: `linear-gradient(180deg, ${theme.palette.background.default} 0%, ${theme.palette.background.paper} 100%)`,

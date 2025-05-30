@@ -325,7 +325,7 @@ const ContactSection = () => {
   };
 
   return (
-    <ContactContainer>
+    <ContactContainer id="contact">
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2, py: 4 }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
