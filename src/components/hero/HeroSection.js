@@ -3,9 +3,11 @@ import { Box, Container, Grid, Typography, Button, useTheme } from '@mui/materia
 import { styled } from '@mui/material/styles';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
+import TechItem from './TechItem';
 
 const StyledHeroSection = styled(Box)(({ theme }) => ({
   minHeight: '100vh',
+  width: '100vw',
   position: 'relative',
   overflow: 'hidden',
   background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)',
@@ -21,14 +23,19 @@ const StyledHeroSection = styled(Box)(({ theme }) => ({
   },
 }));
 
-const FloatingElement = styled(motion.div)({
-  position: 'absolute',
-  width: '100%',
-  height: '100%',
-  pointerEvents: 'none',
-});
+const ParallaxBackground = styled(Box)(({ theme }) => ({
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  overflow: 'hidden',
+  zIndex: 0,
+  width: '100vw',
+  height: '100vh',
+}));
 
-const GlowingCircle = styled(motion.div)(({ size, color }) => ({
+const ParallaxCircle = styled(motion.div)(({ theme, size, color, top, left }) => ({
   position: 'absolute',
   width: size,
   height: size,
@@ -36,6 +43,19 @@ const GlowingCircle = styled(motion.div)(({ size, color }) => ({
   background: `radial-gradient(circle at center, ${color} 0%, transparent 70%)`,
   filter: 'blur(20px)',
   opacity: 0.3,
+  top,
+  left,
+}));
+
+const ParallaxLine = styled(motion.div)(({ theme, width, height, color, top, left, rotate }) => ({
+  position: 'absolute',
+  width,
+  height,
+  background: `linear-gradient(90deg, ${color}, transparent)`,
+  top,
+  left,
+  transform: `rotate(${rotate}deg)`,
+  opacity: 0.2,
 }));
 
 const ContentWrapper = styled(Box)({
@@ -54,30 +74,21 @@ const TechStack = styled(Box)({
   marginTop: '2rem',
 });
 
-const TechItem = styled(motion.div)(({ theme }) => ({
-  padding: '0.5rem 1rem',
-  borderRadius: '20px',
-  background: 'rgba(255, 255, 255, 0.1)',
-  backdropFilter: 'blur(10px)',
-  border: '1px solid rgba(255, 255, 255, 0.2)',
-  color: '#fff',
-  fontSize: '0.9rem',
-  fontWeight: 500,
-  display: 'flex',
-  alignItems: 'center',
-  gap: '0.5rem',
-}));
-
 const HeroSection = () => {
   const theme = useTheme();
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 1000], [0, 200]);
   const ref = useRef(null);
 
-  const floatingElements = [
-    { size: '300px', color: '#3f51b5', x: '10%', y: '20%' },
-    { size: '200px', color: '#7986cb', x: '80%', y: '40%' },
-    { size: '150px', color: '#a8c0ff', x: '30%', y: '70%' },
+  const parallaxElements = [
+    { type: 'circle', size: '600px', color: '#3f51b5', top: '10%', left: '5%', speed: 0.2 },
+    { type: 'circle', size: '500px', color: '#7986cb', top: '60%', left: '85%', speed: 0.3 },
+    { type: 'circle', size: '400px', color: '#a8c0ff', top: '30%', left: '70%', speed: 0.4 },
+    { type: 'line', width: '800px', height: '2px', color: '#3f51b5', top: '20%', left: '10%', rotate: 45, speed: 0.5 },
+    { type: 'line', width: '600px', height: '2px', color: '#7986cb', top: '80%', left: '60%', rotate: -45, speed: 0.6 },
+    { type: 'line', width: '500px', height: '2px', color: '#a8c0ff', top: '40%', left: '30%', rotate: 30, speed: 0.7 },
+    { type: 'circle', size: '300px', color: '#3f51b5', top: '80%', left: '20%', speed: 0.4 },
+    { type: 'circle', size: '200px', color: '#7986cb', top: '20%', left: '40%', speed: 0.3 },
   ];
 
   const techStack = [
@@ -86,29 +97,60 @@ const HeroSection = () => {
 
   return (
     <StyledHeroSection>
-      <FloatingElement>
-        {floatingElements.map((element, index) => (
-          <GlowingCircle
-            key={index}
-            size={element.size}
-            color={element.color}
-            animate={{
-              x: [element.x, `${parseInt(element.x) + 20}%`],
-              y: [element.y, `${parseInt(element.y) + 20}%`],
-            }}
-            transition={{
-              duration: 10 + index * 2,
-              repeat: Infinity,
-              repeatType: 'reverse',
-              ease: 'easeInOut',
-            }}
-            style={{
-              left: element.x,
-              top: element.y,
-            }}
-          />
-        ))}
-      </FloatingElement>
+      <ParallaxBackground>
+        <Parallax pages={3} style={{ height: '100%', width: '100%' }}>
+          {parallaxElements.map((element, index) => (
+            <ParallaxLayer
+              key={index}
+              offset={0}
+              speed={element.speed}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '100%',
+                height: '100%',
+              }}
+            >
+              {element.type === 'circle' ? (
+                <ParallaxCircle
+                  size={element.size}
+                  color={element.color}
+                  top={element.top}
+                  left={element.left}
+                  animate={{
+                    scale: [1, 1.2, 1],
+                    opacity: [0.3, 0.4, 0.3],
+                  }}
+                  transition={{
+                    duration: 5 + index,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                  }}
+                />
+              ) : (
+                <ParallaxLine
+                  width={element.width}
+                  height={element.height}
+                  color={element.color}
+                  top={element.top}
+                  left={element.left}
+                  rotate={element.rotate}
+                  animate={{
+                    opacity: [0.2, 0.3, 0.2],
+                    scale: [1, 1.1, 1],
+                  }}
+                  transition={{
+                    duration: 4 + index,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                  }}
+                />
+              )}
+            </ParallaxLayer>
+          ))}
+        </Parallax>
+      </ParallaxBackground>
 
       <ContentWrapper>
         <Container maxWidth="lg" sx={{ height: '100vh', display: 'flex', alignItems: 'center' }}>
@@ -185,7 +227,7 @@ const HeroSection = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
-                style={{ display: 'flex', gap: { xs: '1rem', sm: '1.25rem', md: '1.5rem' } }}
+                style={{ display: 'flex', gap: '1rem' }}
               >
                 <Button
                   variant="contained"
@@ -283,7 +325,7 @@ const HeroSection = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.8 }}
               >
-                <TechStack sx={{ mt: { xs: 1.5, sm: 1.75, md: 2 } }}>
+                <TechStack>
                   {techStack.map((tech, index) => (
                     <TechItem
                       key={tech}
@@ -293,10 +335,6 @@ const HeroSection = () => {
                       whileHover={{
                         scale: 1.05,
                         background: 'rgba(255, 255, 255, 0.2)',
-                      }}
-                      sx={{
-                        padding: { xs: '0.3rem 0.8rem', sm: '0.4rem 0.9rem', md: '0.5rem 1rem' },
-                        fontSize: { xs: '0.8rem', sm: '0.85rem', md: '0.9rem' },
                       }}
                     >
                       {tech}

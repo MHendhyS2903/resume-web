@@ -2,10 +2,11 @@ import React from 'react';
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import { Box, Container } from '@mui/material';
 import darkTheme from './theme';
-import HeroSection from './components/HeroSection';
-import ProjectsSection from './components/ProjectsSection';
-import SkillsSection from './components/SkillsSection';
-import ContactSection from './components/ContactSection';
+import HeroSection from './components/hero/HeroSection';
+import EducationSection from './components/education/EducationSection';
+import ProjectsSection from './components/project/ProjectsSection';
+import SkillsSection from './components/skill/SkillsSection';
+import ContactSection from './components/contact/ContactSection';
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
         }}
       >
         <HeroSection />
+        <EducationSection />
         <ProjectsSection />
         <SkillsSection />
         <ContactSection />

@@ -6,14 +6,28 @@ import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 const SkillCard = styled(motion.div)(({ theme }) => ({
   position: 'relative',
   padding: theme.spacing(2),
-  borderRadius: '16px',
+  borderRadius: '24px',
   background: 'rgba(18, 18, 18, 0.7)',
   backdropFilter: 'blur(10px)',
-  border: '1px solid rgba(255, 255, 255, 0.05)',
+  border: '1px solid rgba(255, 255, 255, 0.08)',
   overflow: 'hidden',
   perspective: '1000px',
   transformStyle: 'preserve-3d',
   boxShadow: '0 4px 30px rgba(0, 0, 0, 0.3)',
+  '&::before': {
+    content: '""',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    background: 'linear-gradient(135deg, rgba(26, 35, 126, 0.1), rgba(13, 71, 161, 0.1))',
+    zIndex: 0,
+  },
+  '&:hover': {
+    border: '1px solid rgba(255, 255, 255, 0.15)',
+    boxShadow: '0 8px 40px rgba(13, 71, 161, 0.2)',
+  },
 }));
 
 const SkillContent = styled(motion.div)({
@@ -23,17 +37,34 @@ const SkillContent = styled(motion.div)({
 });
 
 const SkillIcon = styled(motion.div)(({ theme }) => ({
-  width: '45px',
-  height: '45px',
-  borderRadius: '12px',
-  background: 'linear-gradient(135deg, #1a237e, #0d47a1)',
+  width: '54px',
+  height: '54px',
+  borderRadius: '20px',
+  background: 'linear-gradient(135deg, rgba(26, 35, 126, 0.8), rgba(13, 71, 161, 0.8))',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  fontSize: '1.5rem',
+  fontSize: '1.2rem',
+  fontWeight: 'bold',
+  letterSpacing: '1px',
   marginBottom: theme.spacing(1.5),
-  boxShadow: '0 4px 15px rgba(13, 71, 161, 0.3)',
+  boxShadow: '0 4px 20px rgba(13, 71, 161, 0.2)',
   transform: 'translateZ(20px)',
+  position: 'relative',
+  overflow: 'hidden',
+  backdropFilter: 'blur(5px)',
+  color: 'rgba(255, 255, 255, 0.9)',
+  '&::before': {
+    content: '""',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    background: 'linear-gradient(45deg, rgba(255,255,255,0.15), rgba(255,255,255,0))',
+    zIndex: 1,
+  },
+  transition: 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
 }));
 
 const SparkleEffect = styled(motion.div)(({ theme }) => ({
@@ -80,12 +111,12 @@ const SkillProgress = styled(motion.div)(({ theme, level }) => ({
 }));
 
 const Hexagon = styled(motion.div)(({ active, theme }) => ({
-  width: '16px',
-  height: '16px',
+  width: '18px',
+  height: '18px',
   position: 'relative',
   background: active ? '#90caf9' : 'rgba(255, 255, 255, 0.1)',
   clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
-  boxShadow: active ? '0 0 8px #90caf9' : 'none',
+  boxShadow: active ? '0 0 12px #90caf9' : 'none',
   transition: 'all 0.3s ease',
   '&::before': {
     content: '""',
@@ -98,8 +129,8 @@ const Hexagon = styled(motion.div)(({ active, theme }) => ({
     clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
   },
   '&:hover': {
-    transform: active ? 'scale(1.2) rotate(30deg)' : 'scale(1.1)',
-    boxShadow: active ? '0 0 12px #90caf9' : '0 0 8px rgba(255, 255, 255, 0.2)',
+    transform: active ? 'scale(1.3) rotate(30deg)' : 'scale(1.2)',
+    boxShadow: active ? '0 0 15px #90caf9' : '0 0 10px rgba(255, 255, 255, 0.2)',
   },
 }));
 
@@ -108,7 +139,7 @@ const ProgressText = styled(Typography)({
   zIndex: 1,
   fontWeight: 'bold',
   color: '#90caf9',
-  fontSize: '0.8rem',
+  fontSize: '0.85rem',
   textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
   marginLeft: '8px',
   '&::before': {
@@ -118,8 +149,8 @@ const ProgressText = styled(Typography)({
     top: '50%',
     transform: 'translateY(-50%)',
     width: '1px',
-    height: '12px',
-    background: 'rgba(255, 255, 255, 0.1)',
+    height: '14px',
+    background: 'rgba(255, 255, 255, 0.15)',
   },
 });
 
@@ -142,7 +173,6 @@ const SkillsSection = () => {
   const skills = [
     {
       category: 'Frontend',
-      icon: '⚛️',
       skills: [
         { name: 'React', level: 90 },
         { name: 'TypeScript', level: 85 },
@@ -153,7 +183,6 @@ const SkillsSection = () => {
     },
     {
       category: 'Backend',
-      icon: '🚀',
       skills: [
         { name: 'Node.js', level: 92 },
         { name: 'Express', level: 90 },
@@ -164,7 +193,6 @@ const SkillsSection = () => {
     },
     {
       category: 'Database',
-      icon: '🗄️',
       skills: [
         { name: 'MongoDB', level: 88 },
         { name: 'PostgreSQL', level: 85 },
@@ -175,7 +203,6 @@ const SkillsSection = () => {
     },
     {
       category: 'DevOps',
-      icon: '⚙️',
       skills: [
         { name: 'Docker', level: 85 },
         { name: 'AWS', level: 80 },
@@ -291,13 +318,6 @@ const SkillsSection = () => {
                   transition={{ duration: 0.3 }}
                 />
                 <SkillContent>
-                  <SkillIcon
-                    initial={{ scale: 0, rotate: -180 }}
-                    animate={{ scale: 1, rotate: 0 }}
-                    transition={{ type: 'spring', stiffness: 200, delay: index * 0.1 }}
-                  >
-                    {category.icon}
-                  </SkillIcon>
                   <Typography 
                     variant="h6" 
                     gutterBottom 
