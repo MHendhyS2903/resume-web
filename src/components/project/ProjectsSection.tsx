@@ -14,6 +14,15 @@ import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
+interface Project {
+  title: string;
+  description: string;
+  image: string;
+  technologies: string[];
+  github: string;
+  demo: string;
+}
+
 const ProjectCard = styled(motion.div)(({ theme }) => ({
   position: 'relative',
   borderRadius: '24px',
@@ -82,7 +91,7 @@ const TechChip = styled(motion.div)(({ theme }) => ({
   backdropFilter: 'blur(10px)',
   border: '1px solid rgba(255, 255, 255, 0.2)',
   color: '#fff',
-  fontSize: { xs: '0.8rem', sm: '0.85rem', md: '0.9rem' },
+  fontSize: '0.9rem',
   fontWeight: 500,
   display: 'inline-flex',
   alignItems: 'center',
@@ -96,7 +105,7 @@ const TechChip = styled(motion.div)(({ theme }) => ({
   },
   transition: 'all 0.3s ease',
   '& svg': {
-    fontSize: { xs: '0.8rem', sm: '0.85rem', md: '0.9rem' },
+    fontSize: '0.9rem',
     color: 'rgba(255, 255, 255, 0.8)',
     flexShrink: 0,
   },
@@ -230,11 +239,11 @@ const NavButton = styled(Box)(({ theme }) => ({
   },
 }));
 
-const ProjectsSection = () => {
+const ProjectsSection: React.FC = () => {
   const theme = useTheme();
-  const swiperRef = React.useRef(null);
+  const swiperRef = React.useRef<any>(null);
 
-  const projects = useMemo(() => [
+  const projects: Project[] = useMemo(() => [
     {
       title: 'MySf Applications',
       description: 'A mobile application designed to offer convenience and accessibility to Smartfren customers by providing various features and functionalities like balance and usage check, package purchase, and bill payment.',
@@ -326,10 +335,10 @@ const ProjectsSection = () => {
   ], []);
 
   const swiperConfig = useMemo(() => ({
-    effect: 'coverflow',
+    effect: 'coverflow' as const,
     grabCursor: true,
     centeredSlides: true,
-    slidesPerView: 'auto',
+    slidesPerView: 'auto' as const,
     coverflowEffect: {
       rotate: 50,
       stretch: 0,

@@ -3,6 +3,24 @@ import { Box, Container, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { motion } from 'framer-motion';
 
+interface EducationData {
+  degree: string;
+  school: string;
+  period: string;
+  description: string;
+  logo: string;
+}
+
+interface FloatingShape {
+  width: string;
+  height: string;
+  top?: string;
+  left?: string;
+  bottom?: string;
+  right?: string;
+  duration: number;
+}
+
 const BackgroundGradient = styled(Box)(({ theme }) => ({
   position: 'absolute',
   top: 0,
@@ -118,8 +136,8 @@ const EducationHeader = styled(Box)(({ theme }) => ({
   marginBottom: theme.spacing(2),
 }));
 
-const EducationSection = () => {
-  const educationData = useMemo(() => [
+const EducationSection: React.FC = () => {
+  const educationData: EducationData[] = useMemo(() => [
     {
       degree: "Bachelor's degree, Computer Science",
       school: "Politeknik Negeri Jakarta (PNJ)",
@@ -169,7 +187,7 @@ const EducationSection = () => {
     },
   }), []);
 
-  const floatingShapes = useMemo(() => [
+  const floatingShapes: FloatingShape[] = useMemo(() => [
     {
       width: '200px',
       height: '200px',

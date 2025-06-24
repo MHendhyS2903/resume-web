@@ -1,9 +1,26 @@
 import React, { useEffect, useRef, useMemo } from 'react';
-import { Box, Container, Grid, Typography, Button, useTheme } from '@mui/material';
+import { Box, Container, Typography, Button, useTheme, Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 import TechItem from './TechItem';
+
+interface ParallaxElement {
+  type: 'circle' | 'line';
+  size?: string;
+  width?: string;
+  height?: string;
+  color: string;
+  top: string;
+  left: string;
+  rotate?: number;
+  speed: number;
+}
+
+interface ButtonStyles {
+  contained: React.CSSProperties;
+  outlined: React.CSSProperties;
+}
 
 const StyledHeroSection = styled(Box)(({ theme }) => ({
   height: '100vh',
@@ -37,7 +54,7 @@ const ParallaxBackground = styled(Box)(({ theme }) => ({
   height: '100vh',
 }));
 
-const ParallaxCircle = styled(motion.div)(({ theme, size, color, top, left }) => ({
+const ParallaxCircle = styled(motion.div)<{ size: string; color: string; top: string; left: string }>(({ theme, size, color, top, left }) => ({
   position: 'absolute',
   width: size,
   height: size,
@@ -49,7 +66,7 @@ const ParallaxCircle = styled(motion.div)(({ theme, size, color, top, left }) =>
   left,
 }));
 
-const ParallaxLine = styled(motion.div)(({ theme, width, height, color, top, left, rotate }) => ({
+const ParallaxLine = styled(motion.div)<{ width: string; height: string; color: string; top: string; left: string; rotate: number }>(({ theme, width, height, color, top, left, rotate }) => ({
   position: 'absolute',
   width,
   height,
@@ -78,13 +95,13 @@ const TechStack = styled(Box)({
   marginTop: '2rem',
 });
 
-const HeroSection = () => {
+const HeroSection: React.FC = () => {
   const theme = useTheme();
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 1000], [0, 200]);
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
 
-  const parallaxElements = useMemo(() => [
+  const parallaxElements: ParallaxElement[] = useMemo(() => [
     { type: 'circle', size: '600px', color: '#3f51b5', top: '10%', left: '5%', speed: 0.2 },
     { type: 'circle', size: '500px', color: '#7986cb', top: '60%', left: '85%', speed: 0.3 },
     { type: 'circle', size: '400px', color: '#a8c0ff', top: '30%', left: '70%', speed: 0.4 },
@@ -95,7 +112,7 @@ const HeroSection = () => {
     { type: 'circle', size: '200px', color: '#7986cb', top: '20%', left: '40%', speed: 0.3 },
   ], []);
 
-  const techStack = useMemo(() => [
+  const techStack: string[] = useMemo(() => [
     'React Native',
     'Kotlin',
     'Flutter',
@@ -112,7 +129,7 @@ const HeroSection = () => {
     'Java'
   ], []);
 
-  const buttonStyles = useMemo(() => ({
+  const buttonStyles: ButtonStyles = useMemo(() => ({
     contained: {
       borderRadius: '30px',
       background: 'rgba(63, 81, 181, 0.2)',
@@ -120,36 +137,14 @@ const HeroSection = () => {
       border: '1px solid rgba(63, 81, 181, 0.3)',
       color: '#fff',
       boxShadow: '0 4px 20px rgba(63, 81, 181, 0.2)',
-      padding: { xs: '8px 16px', sm: '10px 20px', md: '12px 32px' },
-      fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' },
+      padding: '12px 32px',
+      fontSize: '1.1rem',
       whiteSpace: 'nowrap',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
-      minWidth: { xs: '120px', sm: '140px', md: '160px' },
-      maxWidth: { xs: '100%', sm: '200px', md: '240px' },
+      minWidth: '160px',
+      maxWidth: '240px',
       position: 'relative',
-      '&::before': {
-        content: '""',
-        position: 'absolute',
-        top: 0,
-        left: '-100%',
-        width: '100%',
-        height: '100%',
-        background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)',
-        transition: '0.5s',
-      },
-      '&:hover': {
-        transform: 'translateY(-2px)',
-        boxShadow: '0 6px 25px rgba(63, 81, 181, 0.3)',
-        background: 'rgba(63, 81, 181, 0.3)',
-        '&::before': {
-          left: '100%',
-        },
-      },
-      '&:active': {
-        transform: 'translateY(1px)',
-      },
-      transition: 'all 0.3s ease',
     },
     outlined: {
       borderRadius: '30px',
@@ -158,37 +153,14 @@ const HeroSection = () => {
       border: '1px solid rgba(168, 192, 255, 0.3)',
       color: '#a8c0ff',
       boxShadow: '0 4px 20px rgba(168, 192, 255, 0.1)',
-      padding: { xs: '8px 16px', sm: '10px 20px', md: '12px 32px' },
-      fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' },
+      padding: '12px 32px',
+      fontSize: '1.1rem',
       whiteSpace: 'nowrap',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
-      minWidth: { xs: '120px', sm: '140px', md: '160px' },
-      maxWidth: { xs: '100%', sm: '200px', md: '240px' },
+      minWidth: '160px',
+      maxWidth: '240px',
       position: 'relative',
-      '&::before': {
-        content: '""',
-        position: 'absolute',
-        top: 0,
-        left: '-100%',
-        width: '100%',
-        height: '100%',
-        background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)',
-        transition: '0.5s',
-      },
-      '&:hover': {
-        transform: 'translateY(-2px)',
-        boxShadow: '0 6px 25px rgba(168, 192, 255, 0.2)',
-        background: 'rgba(168, 192, 255, 0.2)',
-        color: '#fff',
-        '&::before': {
-          left: '100%',
-        },
-      },
-      '&:active': {
-        transform: 'translateY(1px)',
-      },
-      transition: 'all 0.3s ease',
     }
   }), []);
 
@@ -212,7 +184,7 @@ const HeroSection = () => {
             >
               {element.type === 'circle' ? (
                 <ParallaxCircle
-                  size={element.size}
+                  size={element.size!}
                   color={element.color}
                   top={element.top}
                   left={element.left}
@@ -228,12 +200,12 @@ const HeroSection = () => {
                 />
               ) : (
                 <ParallaxLine
-                  width={element.width}
-                  height={element.height}
+                  width={element.width!}
+                  height={element.height!}
                   color={element.color}
                   top={element.top}
                   left={element.left}
-                  rotate={element.rotate}
+                  rotate={element.rotate!}
                   animate={{
                     opacity: [0.2, 0.3, 0.2],
                     scale: [1, 1.1, 1],
@@ -256,12 +228,16 @@ const HeroSection = () => {
           display: 'flex', 
           alignItems: 'center',
           overflow: 'hidden',
-          '& .MuiGrid-container': {
-            overflow: 'hidden'
-          }
         }}>
-          <Grid container spacing={4} alignItems="center" sx={{ overflow: 'hidden' }}>
-            <Grid item xs={12} md={8}>
+          <Box sx={{ 
+            display: 'flex', 
+            flexDirection: { xs: 'column', md: 'row' }, 
+            gap: 4, 
+            alignItems: 'center',
+            width: '100%',
+            overflow: 'hidden'
+          }}>
+            <Box sx={{ flex: { xs: 1, md: 8 } }}>
               <AnimatedText>
                 <motion.div
                   initial={{ opacity: 0, y: 50 }}
@@ -385,8 +361,8 @@ const HeroSection = () => {
                   ))}
                 </TechStack>
               </motion.div>
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
         </Container>
       </ContentWrapper>
     </StyledHeroSection>

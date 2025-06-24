@@ -3,6 +3,16 @@ import { Box, Container, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
+interface Skill {
+  name: string;
+  level: number;
+}
+
+interface SkillCategory {
+  category: string;
+  skills: Skill[];
+}
+
 const SkillCard = styled(motion.div)(({ theme }) => ({
   position: 'relative',
   padding: theme.spacing(2),
@@ -57,7 +67,7 @@ const SparkleEffect = styled(motion.div)(({ theme }) => ({
   },
 }));
 
-const SkillProgress = styled(motion.div)(({ theme, level }) => ({
+const SkillProgress = styled(motion.div)<{ level: number }>(({ theme, level }) => ({
   display: 'flex',
   alignItems: 'center',
   gap: '2px',
@@ -79,7 +89,7 @@ const SkillProgress = styled(motion.div)(({ theme, level }) => ({
   },
 }));
 
-const Hexagon = styled(motion.div)(({ active, theme }) => ({
+const Hexagon = styled(motion.div)<{ active: boolean }>(({ active, theme }) => ({
   width: '18px',
   height: '18px',
   position: 'relative',
@@ -134,12 +144,12 @@ const GlowEffect = styled(motion.div)({
   pointerEvents: 'none',
 });
 
-const SkillsSection = () => {
+const SkillsSection: React.FC = () => {
   const { scrollYProgress } = useScroll();
   const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
   const rotateX = useTransform(scrollYProgress, [0, 1], [0, 5]);
 
-  const skills = useMemo(() => [
+  const skills: SkillCategory[] = useMemo(() => [
     {
       category: 'Mobile Development',
       skills: [
@@ -391,7 +401,7 @@ const SkillsSection = () => {
                               />
                             ))}
                           </SkillProgress>
-                          <ProgressText
+                          <motion.div
                             initial={{ opacity: 0, x: -10 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ 
@@ -400,8 +410,10 @@ const SkillsSection = () => {
                               stiffness: 200
                             }}
                           >
-                            {skill.level}%
-                          </ProgressText>
+                            <ProgressText>
+                              {skill.level}%
+                            </ProgressText>
+                          </motion.div>
                         </Box>
                       </Box>
                     </motion.div>

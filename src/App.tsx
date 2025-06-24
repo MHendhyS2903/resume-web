@@ -4,11 +4,12 @@ import { Box, Container } from '@mui/material';
 import darkTheme from './theme';
 import HeroSection from './components/hero/HeroSection';
 import EducationSection from './components/education/EducationSection';
+import ExperienceSection from './components/experience/ExperienceSection';
 import ProjectsSection from './components/project/ProjectsSection';
 import SkillsSection from './components/skill/SkillsSection';
 import ContactSection from './components/contact/ContactSection';
 
-const App = () => {
+const App: React.FC = () => {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
@@ -24,6 +25,7 @@ const App = () => {
       >
         <HeroSection />
         <EducationSection />
+        <ExperienceSection />
         <ProjectsSection />
         <SkillsSection />
         <ContactSection />

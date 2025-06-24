@@ -10,6 +10,28 @@ import EmailIcon from '@mui/icons-material/Email';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import LanguageIcon from '@mui/icons-material/Language';
 
+interface FormState {
+  name: string;
+  email: string;
+  message: string;
+}
+
+interface ContactInfo {
+  icon: React.ReactNode;
+  label: string;
+  value: string;
+  link: string;
+}
+
+interface SocialLink {
+  icon: React.ReactNode;
+  url: string;
+}
+
+interface ButtonStyles {
+  submit: React.CSSProperties;
+}
+
 const ContactContainer = styled(Box)(({ theme }) => ({
   minHeight: '100vh',
   width: '100%',
@@ -64,7 +86,6 @@ const SocialButton = styled(motion.button)(({ theme }) => ({
   justifyContent: 'center',
   cursor: 'pointer',
   color: '#ff69b4',
-  transition: 'all 0.3s ease',
   position: 'relative',
   overflow: 'hidden',
   '&::before': {
@@ -88,6 +109,7 @@ const SocialButton = styled(motion.button)(({ theme }) => ({
   '&:active': {
     transform: 'translateY(1px)',
   },
+  transition: 'all 0.3s ease',
 }));
 
 const ContactInfoCard = styled(motion.div)(({ theme }) => ({
@@ -231,15 +253,15 @@ const FooterText = styled(Typography)(({ theme }) => ({
   }
 }));
 
-const ContactSection = () => {
+const ContactSection: React.FC = () => {
   const theme = useTheme();
-  const [formState, setFormState] = useState({
+  const [formState, setFormState] = useState<FormState>({
     name: '',
     email: '',
     message: '',
   });
 
-  const contactInfo = useMemo(() => [
+  const contactInfo: ContactInfo[] = useMemo(() => [
     {
       icon: <PhoneIcon />,
       label: 'Phone',
@@ -266,7 +288,7 @@ const ContactSection = () => {
     }
   ], []);
 
-  const socialLinks = useMemo(() => [
+  const socialLinks: SocialLink[] = useMemo(() => [
     {
       icon: <GitHubIcon />,
       url: 'https://github.com/MHendhyS2903',
@@ -281,47 +303,25 @@ const ContactSection = () => {
     }
   ], []);
 
-  const buttonStyles = useMemo(() => ({
+  const buttonStyles: ButtonStyles = useMemo(() => ({
     submit: {
       background: 'rgba(255, 105, 180, 0.2)',
       backdropFilter: 'blur(10px)',
       border: '1px solid rgba(255, 105, 180, 0.3)',
       color: '#fff',
       boxShadow: '0 4px 20px rgba(255, 105, 180, 0.2)',
-      padding: { xs: '12px 32px', sm: '14px 36px', md: '16px 40px' },
-      fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' },
+      padding: '16px 40px',
+      fontSize: '1.1rem',
       whiteSpace: 'nowrap',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
-      minWidth: { xs: '160px', sm: '180px', md: '200px' },
-      maxWidth: { xs: '100%', sm: '240px', md: '280px' },
+      minWidth: '200px',
+      maxWidth: '280px',
       position: 'relative',
-      '&::before': {
-        content: '""',
-        position: 'absolute',
-        top: 0,
-        left: '-100%',
-        width: '100%',
-        height: '100%',
-        background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)',
-        transition: '0.5s',
-      },
-      '&:hover': {
-        transform: 'translateY(-2px)',
-        boxShadow: '0 6px 25px rgba(255, 105, 180, 0.3)',
-        background: 'rgba(255, 105, 180, 0.3)',
-        '&::before': {
-          left: '100%',
-        },
-      },
-      '&:active': {
-        transform: 'translateY(1px)',
-      },
-      transition: 'all 0.3s ease',
     }
   }), []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle form submission
   };
@@ -358,8 +358,14 @@ const ContactSection = () => {
           minHeight: 'calc(100vh - 150px)',
           mt: 2
         }}>
-          <Grid container spacing={2} justifyContent="center">
-            <Grid item xs={12} md={6}>
+          <Box sx={{ 
+            display: 'flex', 
+            flexDirection: { xs: 'column', md: 'row' }, 
+            gap: 2, 
+            justifyContent: 'center',
+            width: '100%'
+          }}>
+            <Box sx={{ flex: { xs: 1, md: 6 } }}>
               <motion.div
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -472,9 +478,9 @@ const ContactSection = () => {
                   </ContactInfoCard>
                 </motion.div>
               </motion.div>
-            </Grid>
+            </Box>
 
-            <Grid item xs={12} md={6}>
+            <Box sx={{ flex: { xs: 1, md: 6 } }}>
               <motion.div
                 initial={{ opacity: 0, x: 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -597,8 +603,8 @@ const ContactSection = () => {
                   </form>
                 </ContactCard>
               </motion.div>
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
         </Box>
       </Container>
       <Footer>

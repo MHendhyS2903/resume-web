@@ -2,7 +2,15 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { styled } from '@mui/material/styles';
 
-const TechItem = styled(motion.div)(({ theme }) => ({
+interface TechItemProps {
+  children: React.ReactNode;
+  initial?: any;
+  animate?: any;
+  transition?: any;
+  whileHover?: any;
+}
+
+const TechItem = styled(motion.div)<TechItemProps>(({ theme }) => ({
   padding: '0.5rem 1rem',
   borderRadius: '20px',
   background: 'rgba(255, 255, 255, 0.1)',
@@ -28,4 +36,12 @@ const TechItem = styled(motion.div)(({ theme }) => ({
   },
 }));
 
-export default TechItem; 
+const TechItemComponent: React.FC<TechItemProps> = ({ children, ...props }) => {
+  return (
+    <TechItem {...props}>
+      {children}
+    </TechItem>
+  );
+};
+
+export default TechItemComponent; 
