@@ -4,12 +4,15 @@ import { styled } from '@mui/material/styles';
 import { motion, AnimatePresence } from 'framer-motion';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import WorkIcon from '@mui/icons-material/Work';
+import BusinessIcon from '@mui/icons-material/Business';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
 interface Experience {
   title: string;
   company: string;
   period: string;
-  description: string;
+  description: string[];
   technologies: string[];
 }
 
@@ -19,40 +22,52 @@ const TimelineContainer = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   alignItems: 'center',
   width: '100%',
-  '&::before': {
-    content: '""',
-    position: 'absolute',
-    left: 'calc(50% - 250px)',
-    top: 0,
-    bottom: 0,
-    width: '2px',
-    background: 'linear-gradient(to bottom, #90caf9, #64b5f6, #42a5f5, transparent)',
-    zIndex: 1,
-  },
+  // '&::before': {
+  //   content: '""',
+  //   position: 'absolute',
+  //   left: 'calc(50% - 250px)',
+  //   top: 0,
+  //   bottom: 0,
+  //   width: '3px',
+  //   background: 'linear-gradient(to bottom, #90caf9, #64b5f6, #42a5f5, #2196f3, transparent)',
+  //   zIndex: 1,
+  //   boxShadow: '0 0 20px rgba(144, 202, 249, 0.5)',
+  // },
 }));
 
 const TimelineDot = styled(Box)(({ theme }) => ({
   position: 'absolute',
   left: 'calc(50% - 250px)',
-  top: '16px',
-  width: '10px',
-  height: '10px',
+  top: '20px',
+  width: '16px',
+  height: '16px',
   borderRadius: '50%',
-  background: '#90caf9',
-  border: '2px solid rgba(18, 18, 18, 0.9)',
-  boxShadow: '0 0 0 2px rgba(144, 202, 249, 0.3)',
+  background: 'linear-gradient(135deg, #90caf9, #64b5f6)',
+  border: '3px solid rgba(18, 18, 18, 0.95)',
+  boxShadow: '0 0 0 4px rgba(144, 202, 249, 0.4), 0 4px 12px rgba(144, 202, 249, 0.3)',
   zIndex: 2,
   transform: 'translateX(-50%)',
   '&::before': {
     content: '""',
     position: 'absolute',
-    top: '-6px',
-    left: '-6px',
-    width: '22px',
-    height: '22px',
+    top: '-8px',
+    left: '-8px',
+    width: '32px',
+    height: '32px',
+    borderRadius: '50%',
+    background: 'rgba(144, 202, 249, 0.15)',
+    animation: 'pulse 3s infinite',
+  },
+  '&::after': {
+    content: '""',
+    position: 'absolute',
+    top: '-4px',
+    left: '-4px',
+    width: '24px',
+    height: '24px',
     borderRadius: '50%',
     background: 'rgba(144, 202, 249, 0.1)',
-    animation: 'pulse 2s infinite',
+    animation: 'pulse 2s infinite 0.5s',
   },
   '@keyframes pulse': {
     '0%': {
@@ -60,8 +75,8 @@ const TimelineDot = styled(Box)(({ theme }) => ({
       opacity: 1,
     },
     '50%': {
-      transform: 'translateX(-50%) scale(1.2)',
-      opacity: 0.5,
+      transform: 'translateX(-50%) scale(1.3)',
+      opacity: 0.3,
     },
     '100%': {
       transform: 'translateX(-50%) scale(1)',
@@ -72,79 +87,111 @@ const TimelineDot = styled(Box)(({ theme }) => ({
 
 const ExperienceCard = styled(motion.div)(({ theme }) => ({
   position: 'relative',
-  padding: theme.spacing(1.5),
-  borderRadius: '12px',
-  background: 'rgba(18, 18, 18, 0.8)',
-  backdropFilter: 'blur(15px)',
-  border: '1px solid rgba(255, 255, 255, 0.1)',
+  padding: theme.spacing(2.5),
+  borderRadius: '20px',
+  background: 'rgba(18, 18, 18, 0.85)',
+  backdropFilter: 'blur(20px)',
+  border: '1px solid rgba(255, 255, 255, 0.12)',
   overflow: 'hidden',
-  boxShadow: '0 6px 24px rgba(0, 0, 0, 0.3)',
-  marginBottom: theme.spacing(2),
+  boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05)',
+  marginBottom: theme.spacing(3),
   cursor: 'pointer',
-  width: '500px',
-  maxWidth: '90vw',
+  width: '620px',
+  maxWidth: '92vw',
   '&::before': {
     content: '""',
     position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
-    height: '2px',
-    background: 'linear-gradient(90deg, #90caf9, #64b5f6, #42a5f5)',
+    height: '3px',
+    background: 'linear-gradient(90deg, #90caf9, #64b5f6, #42a5f5, #2196f3)',
     transform: 'scaleX(0)',
-    transition: 'transform 0.3s ease',
+    transition: 'transform 0.4s ease',
+  },
+  '&::after': {
+    content: '""',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    background: 'linear-gradient(135deg, rgba(144, 202, 249, 0.05) 0%, transparent 50%, rgba(100, 181, 246, 0.05) 100%)',
+    opacity: 0,
+    transition: 'opacity 0.3s ease',
+    pointerEvents: 'none',
   },
   '&:hover': {
-    border: '1px solid rgba(255, 255, 255, 0.2)',
-    boxShadow: '0 8px 32px rgba(13, 71, 161, 0.3)',
-    transform: 'translateX(3px)',
+    border: '1px solid rgba(255, 255, 255, 0.25)',
+    boxShadow: '0 12px 40px rgba(13, 71, 161, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1)',
+    transform: 'translateX(5px) translateY(-2px)',
     '&::before': {
       transform: 'scaleX(1)',
     },
+    '&::after': {
+      opacity: 1,
+    },
   },
-  transition: 'all 0.3s ease',
+  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
 }));
 
 const ExperienceHeader = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'flex-start',
-  marginBottom: theme.spacing(0.5),
+  marginBottom: theme.spacing(1),
 }));
 
 const ExperienceInfo = styled(Box)(({ theme }) => ({
   flex: 1,
 }));
 
+const InfoRow = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: theme.spacing(0.5),
+  marginBottom: theme.spacing(0.25),
+}));
+
 const ExpandButton = styled(IconButton)(({ theme }) => ({
   color: '#90caf9',
-  padding: theme.spacing(0.25),
+  padding: theme.spacing(0.5),
   marginLeft: theme.spacing(0.5),
+  background: 'rgba(144, 202, 249, 0.1)',
+  border: '1px solid rgba(144, 202, 249, 0.2)',
+  borderRadius: '12px',
   '&:hover': {
-    background: 'rgba(144, 202, 249, 0.1)',
+    background: 'rgba(144, 202, 249, 0.2)',
+    border: '1px solid rgba(144, 202, 249, 0.3)',
+    transform: 'scale(1.05)',
   },
+  transition: 'all 0.3s ease',
 }));
 
 const TechChip = styled(Chip)(({ theme }) => ({
-  background: 'rgba(255, 255, 255, 0.08)',
+  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05))',
   color: '#fff',
-  border: '1px solid rgba(255, 255, 255, 0.15)',
+  border: '1px solid rgba(255, 255, 255, 0.2)',
   fontSize: '0.7rem',
-  height: '20px',
+  height: '24px',
+  borderRadius: '12px',
+  backdropFilter: 'blur(10px)',
   '&:hover': {
-    background: 'rgba(255, 255, 255, 0.15)',
-    transform: 'scale(1.05)',
+    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1))',
+    transform: 'scale(1.05) translateY(-1px)',
+    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)',
   },
-  transition: 'all 0.2s ease',
+  transition: 'all 0.3s ease',
 }));
 
 const FloatingParticle = styled(motion.div)(({ theme }) => ({
   position: 'absolute',
-  width: '4px',
-  height: '4px',
-  background: '#90caf9',
+  width: '6px',
+  height: '6px',
+  background: 'linear-gradient(135deg, #90caf9, #64b5f6)',
   borderRadius: '50%',
   pointerEvents: 'none',
+  boxShadow: '0 0 10px rgba(144, 202, 249, 0.6)',
   '&::before': {
     content: '""',
     position: 'absolute',
@@ -155,8 +202,22 @@ const FloatingParticle = styled(motion.div)(({ theme }) => ({
     background: 'inherit',
     borderRadius: 'inherit',
     transform: 'translate(-50%, -50%)',
-    filter: 'blur(2px)',
+    filter: 'blur(3px)',
   },
+}));
+
+const GlowEffect = styled(Box)(({ theme }) => ({
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  width: '200px',
+  height: '200px',
+  background: 'radial-gradient(circle, rgba(144, 202, 249, 0.1) 0%, transparent 70%)',
+  transform: 'translate(-50%, -50%)',
+  borderRadius: '50%',
+  filter: 'blur(20px)',
+  pointerEvents: 'none',
+  zIndex: 0,
 }));
 
 const ExperienceSection: React.FC = () => {
@@ -167,42 +228,66 @@ const ExperienceSection: React.FC = () => {
       title: "Senior Front End Developer",
       company: "PT. Smartfren Telecom Tbk",
       period: "August 2023 - Present",
-      description: "Develop and maintain MySf applications using React Native. Develop and maintain internal applications such as attendance and HR applications with Kotlin. Continuous improvement of applications, staying up-to-date with industry standards and trends. Compiling performance reports for team members and providing training. Responsible for researching technologies for application development and ensuring successful implementation.",
+      description: [
+        "Develop and maintain MySf applications using React Native",
+        "Develop and maintain some internal applications such as attendance application and HR application with Kotlin",
+        "Continuous Improvement: Continuously evaluate and improve the applications, stay up-to-date with industry standards and trends, and ensure compliance with company policies and best practices",
+        "Compiling a concise performance report for team members, covering their contributions, achievements, areas for improvement, while providing simple training as needed",
+        "Responsible for researching the technologies to be used in the creation and development of applications, ensuring successful implementation"
+      ],
       technologies: ['React Native', 'Kotlin', 'React.js', 'Next.js', 'TypeScript'],
     },
     {
       title: "Senior Front End Developer",
       company: "PT. Bank KB Bukopin Tbk",
       period: "February 2023 - August 2023",
-      description: "Building and maintaining the KB Star mobile banking application using Flutter. Designing and building comprehensive Bank Cash Management (Internet Banking) web platform utilizing JexFrame framework. Creating performance reports for team members and providing guidance for growth.",
+      description: [
+        "Building and maintaining the KB Star mobile banking application using Flutter, delivering a modern and functional interface along with a seamless user experience",
+        "Designing and building a comprehensive Bank Cash Management (Internet Banking) web platform utilizing the JexFrame framework, with a focus on providing robust financial management features, secure transaction capabilities, intuitive user interfaces, and seamless integration with banking systems to optimize cash flow management and enhance user experience",
+        "Creating a straightforward performance report for team members, outlining their contributions, achievements, and areas for growth"
+      ],
       technologies: ['Flutter', 'JexFrame', 'MobX', 'JSP', 'Java'],
     },
     {
       title: "Front End Developer",
       company: "PT. Bank CIMB Niaga Tbk",
       period: "July 2022 - February 2023",
-      description: "Developing the Wealth Management feature within the OctoSmart application using React Native. Optimizing the application for tablet platforms and ensuring responsiveness across different screen sizes.",
+      description: [
+        "Developing the Wealth Management feature within the OctoSmart application using React Native",
+        "Optimizing the application for tablet platforms and ensuring responsiveness across different screen sizes"
+      ],
       technologies: ['React Native', 'Redux', 'Node.js', 'Express.js'],
     },
     {
       title: "Full Stack Developer",
       company: "PT. Anjana Nata Alam",
       period: "March 2021 - July 2022",
-      description: "Creating the 'JastipinAja!' e-commerce application using React Native and React Native Paper. Developing the backend infrastructure with Express.js and MySQL database to efficiently store and manage data.",
+      description: [
+        "Creating the 'JastipinAja!' e-commerce application using React Native and React Native Paper to achieve an efficient and visually appealing user interface",
+        "Developing the backend infrastructure with Express.js and MySQL database to efficiently store and manage data"
+      ],
       technologies: ['React Native', 'Express.js', 'MySQL', 'React Native Paper'],
     },
     {
       title: "Full Stack Developer",
       company: "PT. Asia Trans Teknologi",
       period: "September 2019 - December 2020",
-      description: "Creating food delivery application using Kotlin for mobile and .Net Core for API. Responsible for defining, developing, and evolving software in a fast-paced agile development environment. Collaborating with project managers to implement solutions aligned with shared platforms. Designing, developing, and implementing website code using ASP.Net C#, Microsoft .Net Core, and Microsoft SQL Server.",
+      description: [
+        "Creating food delivery application using Kotlin for mobile and .Net Core for API",
+        "Responsible for defining, developing, and evolving software in a fast-paced agile development environment",
+        "Collaborating with project managers to implement solutions aligned with shared platforms",
+        "Designing, developing, and implementing website code using ASP.Net C#, Microsoft .Net Core, and Microsoft SQL Server",
+        "Creating food delivery application using Kotlin for mobile and .Net Core for API"
+      ],
       technologies: ['Kotlin', 'ASP.NET Core', 'C#', 'SQL Server', 'MongoDB'],
     },
     {
       title: "Junior Web Developer",
       company: "PT. Ebiz Cipta Solusi",
       period: "June 2016 - August 2017",
-      description: "Collaborating with senior developers to create web application named 'New TIDS' using ASP.Net webform and SQL Server for the database.",
+      description: [
+        "Collaborating with senior developers to create web application named 'New TIDS' using ASP.Net webform and SQL Server for the database"
+      ],
       technologies: ['ASP.NET', 'SQL Server', 'C#'],
     }
   ], []);
@@ -229,47 +314,91 @@ const ExperienceSection: React.FC = () => {
         justifyContent: 'center',
       }}
     >
+      {/* Background Glow Effects */}
+      <GlowEffect sx={{ top: '20%', left: '20%', width: '300px', height: '300px' }} />
+      <GlowEffect sx={{ top: '80%', left: '80%', width: '250px', height: '250px' }} />
+
       {/* Floating Particles */}
-      {[...Array(6)].map((_, index) => (
+      {[...Array(15)].map((_, index) => (
         <FloatingParticle
           key={index}
           initial={{ 
             opacity: 0,
-            x: Math.random() * 100 - 50,
-            y: Math.random() * 100 - 50
+            x: Math.random() * 300 - 150,
+            y: Math.random() * 300 - 150
           }}
           animate={{ 
             opacity: [0, 1, 0],
             x: [
-              Math.random() * 100 - 50,
-              Math.random() * 100 - 50,
-              Math.random() * 100 - 50
+              Math.random() * 300 - 150,
+              Math.random() * 300 - 150,
+              Math.random() * 300 - 150
             ],
             y: [
-              Math.random() * 100 - 50,
-              Math.random() * 100 - 50,
-              Math.random() * 100 - 50
+              Math.random() * 300 - 150,
+              Math.random() * 300 - 150,
+              Math.random() * 300 - 150
             ]
           }}
           transition={{
-            duration: 3,
+            duration: 5 + Math.random() * 3,
             repeat: Infinity,
-            delay: index * 0.5,
+            delay: index * 0.4,
             ease: "easeInOut"
           }}
           sx={{
-            top: `${20 + index * 15}%`,
-            left: `${10 + index * 15}%`,
+            top: `${10 + index * 6}%`,
+            left: `${5 + index * 7}%`,
+            width: `${4 + Math.random() * 4}px`,
+            height: `${4 + Math.random() * 4}px`,
+          }}
+        />
+      ))}
+
+      {/* Additional Small Particles */}
+      {[...Array(20)].map((_, index) => (
+        <FloatingParticle
+          key={`small-${index}`}
+          initial={{ 
+            opacity: 0,
+            x: Math.random() * 200 - 100,
+            y: Math.random() * 200 - 100
+          }}
+          animate={{ 
+            opacity: [0, 0.6, 0],
+            x: [
+              Math.random() * 200 - 100,
+              Math.random() * 200 - 100,
+              Math.random() * 200 - 100
+            ],
+            y: [
+              Math.random() * 200 - 100,
+              Math.random() * 200 - 100,
+              Math.random() * 200 - 100
+            ]
+          }}
+          transition={{
+            duration: 3 + Math.random() * 2,
+            repeat: Infinity,
+            delay: index * 0.3,
+            ease: "easeInOut"
+          }}
+          sx={{
+            top: `${15 + index * 4}%`,
+            left: `${10 + index * 5}%`,
+            width: `${2 + Math.random() * 2}px`,
+            height: `${2 + Math.random() * 2}px`,
+            background: `linear-gradient(135deg, rgba(144, 202, 249, ${0.3 + Math.random() * 0.4}), rgba(100, 181, 246, ${0.2 + Math.random() * 0.3}))`,
           }}
         />
       ))}
 
       <Container maxWidth="md" sx={{ position: 'relative', zIndex: 2, py: 2 }}>
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <Typography
             variant="h3"
@@ -277,11 +406,23 @@ const ExperienceSection: React.FC = () => {
               textAlign: 'center',
               mb: 6,
               fontWeight: 'bold',
-              textShadow: '0 2px 10px rgba(0, 0, 0, 0.3)',
-              background: 'linear-gradient(45deg, #fff, #90caf9)',
+              textShadow: '0 4px 20px rgba(0, 0, 0, 0.5)',
+              background: 'linear-gradient(45deg, #fff, #90caf9, #64b5f6)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               fontSize: { xs: '1.75rem', sm: '2rem', md: '2.5rem' },
+              position: 'relative',
+              '&::after': {
+                content: '""',
+                position: 'absolute',
+                bottom: '-10px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: '60px',
+                height: '3px',
+                background: 'linear-gradient(90deg, #90caf9, #64b5f6)',
+                borderRadius: '2px',
+              }
             }}
           >
             Work Experience
@@ -292,10 +433,10 @@ const ExperienceSection: React.FC = () => {
           {experienceData.map((exp, index) => (
             <motion.div
               key={exp.title}
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, x: -60, scale: 0.9 }}
+              whileInView={{ opacity: 1, x: 0, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              transition={{ duration: 0.7, delay: index * 0.15, ease: "easeOut" }}
               style={{ 
                 width: '100%', 
                 display: 'flex', 
@@ -303,51 +444,73 @@ const ExperienceSection: React.FC = () => {
                 position: 'relative'
               }}
             >
-              <TimelineDot />
+              {/* <TimelineDot /> */}
               <ExperienceCard
                 onClick={() => handleCardClick(index)}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
                 <ExperienceHeader>
-                  <ExperienceInfo>
-                    <Typography
-                      variant="h6"
+                  <ExperienceInfo
+                    sx={{
+                      textAlign: 'center',
+                      width: '100%',
+                    }}
+                  >
+                    <InfoRow
                       sx={{
-                        color: '#90caf9',
-                        fontWeight: 'bold',
-                        mb: 0.25,
-                        fontSize: '0.9rem',
-                        lineHeight: 1.2,
+                        justifyContent: 'center',
                       }}
                     >
-                      {exp.title}
-                    </Typography>
-                    <Typography
-                      variant="body1"
+                      <WorkIcon sx={{ color: '#90caf9', fontSize: '1rem' }} />
+                      <Typography
+                        variant="h6"
+                        sx={{
+                          color: '#90caf9',
+                          fontWeight: 'bold',
+                          fontSize: '1rem',
+                          lineHeight: 1.3,
+                          textShadow: '0 2px 8px rgba(144, 202, 249, 0.3)',
+                        }}
+                      >
+                        {exp.title}
+                      </Typography>
+                    </InfoRow>
+                    <InfoRow
                       sx={{
-                        color: '#e3f2fd',
-                        mb: 0.25,
-                        fontSize: '0.8rem',
-                        fontWeight: 500,
+                        justifyContent: 'center',
                       }}
                     >
-                      {exp.company}
-                    </Typography>
-                    <Typography
-                      variant="body2"
+                      <BusinessIcon sx={{ color: '#e3f2fd', fontSize: '0.9rem' }} />
+                      <Typography
+                        variant="body1"
+                        sx={{
+                          color: '#e3f2fd',
+                          fontSize: '0.85rem',
+                          fontWeight: 500,
+                        }}
+                      >
+                        {exp.company}
+                      </Typography>
+                    </InfoRow>
+                    <InfoRow
                       sx={{
-                        color: '#b3e5fc',
-                        fontSize: '0.7rem',
-                        fontStyle: 'italic',
+                        justifyContent: 'center',
                       }}
                     >
-                      {exp.period}
-                    </Typography>
+                      <CalendarTodayIcon sx={{ color: '#b3e5fc', fontSize: '0.8rem' }} />
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          color: '#b3e5fc',
+                          fontSize: '0.75rem',
+                          fontStyle: 'italic',
+                        }}
+                      >
+                        {exp.period}
+                      </Typography>
+                    </InfoRow>
                   </ExperienceInfo>
-                  <ExpandButton size="small">
-                    {expandedIndex === index ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-                  </ExpandButton>
                 </ExperienceHeader>
 
                 <AnimatePresence>
@@ -356,21 +519,62 @@ const ExperienceSection: React.FC = () => {
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: 'auto' }}
                       exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.3, ease: 'easeInOut' }}
+                      transition={{ duration: 0.4, ease: 'easeInOut' }}
                     >
-                      <Box sx={{ mt: 1.5, pt: 1.5, borderTop: '1px solid rgba(255, 255, 255, 0.1)' }}>
+                      <Box sx={{ 
+                        mt: 2, 
+                        pt: 2, 
+                        borderTop: '1px solid rgba(255, 255, 255, 0.15)',
+                        position: 'relative',
+                        '&::before': {
+                          content: '""',
+                          position: 'absolute',
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          height: '1px',
+                          background: 'linear-gradient(90deg, transparent, rgba(144, 202, 249, 0.3), transparent)',
+                        }
+                      }}>
                         <Typography
                           variant="body2"
                           sx={{
-                            color: 'rgba(255, 255, 255, 0.8)',
-                            mb: 1.5,
-                            fontSize: '0.75rem',
-                            lineHeight: 1.5,
+                            color: 'rgba(255, 255, 255, 0.85)',
+                            mb: 2,
+                            fontSize: '0.8rem',
+                            lineHeight: 1.6,
+                            textAlign: 'justify',
                           }}
                         >
-                          {exp.description}
+                          {exp.description.map((item, index) => (
+                            <Box key={index} sx={{ display: 'flex', alignItems: 'flex-start', mb: 1 }}>
+                              <Typography
+                                component="span"
+                                sx={{
+                                  color: '#90caf9',
+                                  fontSize: '0.8rem',
+                                  fontWeight: 'bold',
+                                  mr: 1,
+                                  mt: 0.1,
+                                  flexShrink: 0,
+                                }}
+                              >
+                                ●
+                              </Typography>
+                              <Typography
+                                component="span"
+                                sx={{
+                                  color: 'rgba(255, 255, 255, 0.85)',
+                                  fontSize: '0.8rem',
+                                  lineHeight: 1.6,
+                                }}
+                              >
+                                {item}
+                              </Typography>
+                            </Box>
+                          ))}
                         </Typography>
-                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.25 }}>
+                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                           {exp.technologies.map((tech) => (
                             <TechChip
                               key={tech}
@@ -383,6 +587,35 @@ const ExperienceSection: React.FC = () => {
                     </motion.div>
                   )}
                 </AnimatePresence>
+
+                {/* Expand/Collapse Button at bottom */}
+                <Box sx={{ 
+                  display: 'flex', 
+                  justifyContent: 'center', 
+                  mt: 1.5,
+                  pt: 1,
+                  borderTop: expandedIndex === index ? 'none' : '1px solid rgba(255, 255, 255, 0.1)'
+                }}>
+                  <motion.div
+                    animate={{ 
+                      rotate: expandedIndex === index ? 180 : 0,
+                      y: expandedIndex === index ? 0 : [0, -3, 0]
+                    }}
+                    transition={{ 
+                      duration: 0.3, 
+                      ease: "easeInOut",
+                      y: {
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }
+                    }}
+                  >
+                    <ExpandButton size="small">
+                      <ExpandMoreIcon />
+                    </ExpandButton>
+                  </motion.div>
+                </Box>
               </ExperienceCard>
             </motion.div>
           ))}
