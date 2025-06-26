@@ -46,47 +46,13 @@ const StyledHeroSection = styled(Box)(({ theme }) => ({
     left: 0,
     right: 0,
     bottom: 0,
-    background: 'url("/assets/logo.png")',
+    background: 'url("/assets/logo.svg")',
     backgroundSize: 'contain',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
-    opacity: 0.20,
+    opacity: 0.15,
     zIndex: 1,
     pointerEvents: 'none',
-    animation: 'logoPulse 4s ease-in-out infinite',
-    filter: 'drop-shadow(0 0 8px rgba(144, 202, 249, 0.4)) drop-shadow(0 0 15px rgba(144, 202, 249, 0.2))',
-    '&::before': {
-      content: '""',
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      background: 'radial-gradient(circle at center, rgba(144, 202, 249, 0.1) 0%, transparent 70%)',
-      animation: 'logoRipple 6s ease-in-out infinite',
-    },
-  },
-  '@keyframes logoPulse': {
-    '0%, 100%': {
-      transform: 'scale(1)',
-      opacity: 0.20,
-      filter: 'drop-shadow(0 0 8px rgba(144, 202, 249, 0.4)) drop-shadow(0 0 15px rgba(144, 202, 249, 0.2))',
-    },
-    '50%': {
-      transform: 'scale(1.05)',
-      opacity: 0.30,
-      filter: 'drop-shadow(0 0 12px rgba(144, 202, 249, 0.5)) drop-shadow(0 0 25px rgba(144, 202, 249, 0.3)) drop-shadow(0 0 35px rgba(144, 202, 249, 0.2))',
-    },
-  },
-  '@keyframes logoRipple': {
-    '0%, 100%': {
-      transform: 'scale(1)',
-      opacity: 0.1,
-    },
-    '50%': {
-      transform: 'scale(1.2)',
-      opacity: 0.2,
-    },
   },
 }));
 
