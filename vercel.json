@@ -1,10 +1,11 @@
 {
-  "buildCommand": "echo skip",
-  "outputDirectory": "public",
+  "env": {
+    "DISABLE_ESLINT_PLUGIN": "true"
+  },
   "redirects": [
     {
       "source": "/(.*)",
-      "destination": "https://resume-hendhy-psi.vercel.app/$1",
+      "destination": "https://resume-hendhy-wdmn.vercel.app/$1",
       "permanent": true
     }
   ]
