@@ -1,7 +1,6 @@
 {
-  "env": {
-    "DISABLE_ESLINT_PLUGIN": "true"
-  },
+  "buildCommand": "mkdir -p dist && printf '<html><head><meta http-equiv=\"refresh\" content=\"0;url=https://resume-hendhy-wdmn.vercel.app\"></head></html>' > dist/index.html",
+  "outputDirectory": "dist",
   "redirects": [
     {
       "source": "/(.*)",
