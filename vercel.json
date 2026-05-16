@@ -1,4 +1,6 @@
 {
+  "buildCommand": "echo skip",
+  "outputDirectory": "public",
   "redirects": [
     {
       "source": "/(.*)",
